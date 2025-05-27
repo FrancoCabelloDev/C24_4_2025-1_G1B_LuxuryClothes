@@ -2,6 +2,10 @@
 import React from "react";
 
 function Register() {
+    const handleGoogleRegister = () => {
+        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    };
+
     return (
         <div className="flex h-screen">
             {/* Imagen de Fondo */}
@@ -18,23 +22,19 @@ function Register() {
                     <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
                     <h3 className="text-xl mb-6 text-gray-600">Create Account</h3>
 
-                    {/* Botones de Redes Sociales */}
+                    {/* Botón de Google */}
                     <div className="flex gap-4 mb-4">
-                        <button className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700">
+                        <button
+                            type="button"
+                            className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700"
+                            onClick={handleGoogleRegister}
+                        >
                             <img
                                 src="https://img.icons8.com/color/24/google-logo.png"
                                 alt="Google"
                                 className="mr-2"
                             />
                             Sign up with Google
-                        </button>
-                        <button className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700">
-                            <img
-                                src="https://img.icons8.com/color/24/gmail.png"
-                                alt="Email"
-                                className="mr-2"
-                            />
-                            Sign up with Email
                         </button>
                     </div>
 

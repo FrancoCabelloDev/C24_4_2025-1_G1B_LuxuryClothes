@@ -1,0 +1,1 @@
+ALTER TABLE usuarios MODIFY contraseña VARCHAR(255) NOT NULL DEFAULT '';
