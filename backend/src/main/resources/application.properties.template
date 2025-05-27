@@ -1,0 +1,25 @@
+spring.application.name=Luxuryclothes_project
+spring.datasource.url=jdbc:mysql://localhost:3306/luxury_clothes?useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
+# JWT Secret
+jwt.secret=una_clave_secreta_segura
+
+# Google OAuth2
+spring.security.oauth2.client.registration.google.client-id=${G543300044029-uomsg43b2j5l35s3n28pr52lbnm93mbk.apps.googleusercontent.com}
+spring.security.oauth2.client.registration.google.client-secret=${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}
+spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:8080/login/oauth2/code/google
+spring.security.oauth2.client.registration.google.scope=openid,profile,email
+spring.security.oauth2.client.provider.google.authorization-uri=https://accounts.google.com/o/oauth2/v2/auth
+spring.security.oauth2.client.provider.google.token-uri=https://oauth2.googleapis.com/token
+spring.security.oauth2.client.provider.google.user-info-uri=https://openidconnect.googleapis.com/v1/userinfo
+spring.security.oauth2.client.provider.google.user-name-attribute=sub
+
+# CORS
+# (Opcional, puedes configurar CORS en Java)
+
+server.port=8080
