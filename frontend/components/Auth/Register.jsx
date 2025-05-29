@@ -1,9 +1,26 @@
 // src/components/Auth/Register.jsx
 import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-    const handleGoogleRegister = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    const navigate = useNavigate();
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            const token = credentialResponse.credential;
+            const response = await axios.post("http://localhost:8084/api/auth/google", { token }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const user = response.data;
+            localStorage.setItem("user", JSON.stringify(user));
+            navigate("/welcome");
+        } catch (error) {
+            console.error("Error al registrar con Google:", error);
+        }
     };
 
     return (
@@ -24,18 +41,11 @@ function Register() {
 
                     {/* Botón de Google */}
                     <div className="flex gap-4 mb-4">
-                        <button
-                            type="button"
-                            className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700"
-                            onClick={handleGoogleRegister}
-                        >
-                            <img
-                                src="https://img.icons8.com/color/24/google-logo.png"
-                                alt="Google"
-                                className="mr-2"
-                            />
-                            Sign up with Google
-                        </button>
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={() => console.log("Google Register Failed")}
+                            width="100%"
+                        />
                     </div>
 
                     {/* Línea Divisoria */}

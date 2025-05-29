@@ -1,19 +1,22 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
 
 function Home() {
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-    const nombre = params.get("nombre");
+  const [user, setUser] = useState(null);
 
-    return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
-            {nombre
-                ? <h1 className="text-4xl font-bold">Bienvenido a Luxury Clothes {nombre}</h1>
-                : <h1 className="text-4xl font-bold">Bienvenido a Luxury Clothes</h1>
-            }
-        </div>
-    );
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  return (
+    <div className="h-screen flex flex-col items-center justify-center">
+      <h1 className="text-4xl font-bold mb-4">
+        Bienvenido a Luxury Clothes{user && ` ${user.name}`}
+      </h1>
+    </div>
+  );
 }
 
 export default Home;

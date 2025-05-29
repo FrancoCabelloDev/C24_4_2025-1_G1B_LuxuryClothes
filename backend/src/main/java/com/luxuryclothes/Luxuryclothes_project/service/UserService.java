@@ -1,41 +1,27 @@
 package com.luxuryclothes.Luxuryclothes_project.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.luxuryclothes.Luxuryclothes_project.entity.User;
+import com.luxuryclothes.Luxuryclothes_project.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.luxuryclothes.Luxuryclothes_project.model.User;
-import com.luxuryclothes.Luxuryclothes_project.repository.UserRepository;
-
-import java.util.Optional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final UserRepository repository;
+    private final PasswordEncoder encoder;
 
-    public User register(User user) {
-        if (user.getContraseña() != null && !user.getContraseña().isEmpty()) {
-            // Solo encripta si la contraseña no está ya encriptada (opcional, si quieres evitar doble encriptado)
-            if (!user.getContraseña().startsWith("$2a$")) { // patrón típico de BCrypt
-                user.setContraseña(passwordEncoder.encode(user.getContraseña()));
-            }
-        } else {
-            // Si la contraseña es vacía, guarda una cadena vacía (para usuarios Google)
-            user.setContraseña("");
-        }
-        return userRepository.save(user);
+    public User findOrCreate(String email, String name) {
+        return repository.findByEmail(email).orElseGet(() -> {
+            String fakePassword = encoder.encode(UUID.randomUUID().toString());
+            User newUser = new User(null, email, name, fakePassword);
+            logger.info("Registrando nuevo usuario: {}", newUser);
+            return repository.save(newUser);
+        });
     }
-
-    public Optional<User> findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    public boolean existsByEmail(String email) {
-        return userRepository.existsByEmail(email);
-    }
-
-    // ...otros métodos para recuperación, etc...
 }

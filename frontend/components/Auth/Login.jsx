@@ -1,40 +1,53 @@
 import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
-    const handleGoogleLogin = () => {
-        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    const navigate = useNavigate();
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            const token = credentialResponse.credential;
+            // Depuración: verifica que el token exista
+            console.log("Google token:", token);
+
+            const response = await axios.post("http://localhost:8084/api/auth/google", { token }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const user = response.data;
+            localStorage.setItem("user", JSON.stringify(user));
+
+            // Depuración: verifica que el usuario se guarda y navega
+            console.log("Usuario autenticado:", user);
+            navigate("/welcome");
+        } catch (error) {
+            console.error("Error al autenticar:", error);
+        }
     };
 
     return (
         <div className="flex h-screen">
-            {/* Imagen de Fondo */}
-            <div className="w-1/2 bg-cover" style={{
-                backgroundImage: "url('fashion.JPG')"
-            }}>
+            <div className="w-1/2 bg-cover" style={{ backgroundImage: "url('fashion.JPG')" }}></div>
 
-            </div>
-            {/* Formulario de Inicio de Sesión */}
             <div className="w-1/2 flex justify-center items-center bg-white">
                 <div className="w-96 p-8 shadow-md rounded-md">
                     <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
                     <h3 className="text-xl mb-6 text-gray-600">Sign In</h3>
 
-                    {/* Botón de Google */}
                     <div className="flex gap-4 mb-4">
-                        <button
-                            type="button"
-                            className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700"
-                            onClick={handleGoogleLogin}
-                        >
-                            <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" className="mr-2" />
-                            Sign in with Google
-                        </button>
+                        <GoogleLogin
+                            onSuccess={handleGoogleSuccess}
+                            onError={() => console.log("Login Failed")}
+                            width="100%"
+                        />
                     </div>
 
-                    {/* Línea Divisoria */}
                     <div className="text-center my-4 text-gray-400">— OR —</div>
 
-                    {/* Formulario clásico (opcional, puedes ocultarlo si solo usas Google) */}
                     <form>
                         <input
                             type="email"
@@ -51,7 +64,6 @@ function Login() {
                         </button>
                     </form>
 
-                    {/* Links de Registro y Recuperación */}
                     <div className="flex justify-between mt-4">
                         <a href="/register" className="text-blue-500 hover:underline">Register Now</a>
                         <a href="/forgetpassword" className="text-blue-500 hover:underline">Forgot Password?</a>
@@ -63,4 +75,3 @@ function Login() {
 }
 
 export default Login;
-
