@@ -1,4 +1,3 @@
-// src/components/Auth/NewPassword.jsx
 import React from "react";
 
 function NewPassword() {
@@ -6,16 +5,16 @@ function NewPassword() {
         <div className="flex h-screen">
             {/* Imagen de Fondo */}
             <div
-                className="w-1/2 bg-cover"
+                className="hidden md:block w-1/2 bg-cover bg-center"
                 style={{ backgroundImage: "url('fashion.JPG')" }}
             ></div>
 
             {/* Formulario de Nueva Contraseña */}
-            <div className="w-1/2 flex justify-center items-center bg-white">
-                <div className="w-96 p-8 shadow-md rounded-md">
+            <div className="w-full md:w-1/2 flex justify-center items-center bg-white p-4 md:p-0">
+                <div className="w-full sm:w-96 p-8 shadow-md rounded-md">
                     {/* Título */}
-                    <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
-                    <h3 className="text-xl mb-6 text-gray-600">Enter Your New Password</h3>
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-800 text-center">LuxuryClothes</h2>
+                    <h3 className="text-lg sm:text-xl mb-6 text-gray-600 text-center">Enter Your New Password</h3>
 
                     {/* Campos de Nueva Contraseña */}
                     <form>

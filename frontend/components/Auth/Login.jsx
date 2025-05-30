@@ -4,19 +4,18 @@ function Login() {
     return (
         <div className="flex h-screen">
             {/* Imagen de Fondo */}
-            <div className="w-1/2 bg-cover" style={{
+            <div className="hidden md:block w-1/2 bg-cover bg-center" style={{
                 backgroundImage: "url('fashion.JPG')"
-            }}>
+            }}></div>
 
-            </div>
             {/* Formulario de Inicio de Sesión */}
-            <div className="w-1/2 flex justify-center items-center bg-white">
-                <div className="w-96 p-8 shadow-md rounded-md">
-                    <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
-                    <h3 className="text-xl mb-6 text-gray-600">Sign In</h3>
+            <div className="w-full md:w-1/2 flex justify-center items-center bg-white p-4 md:p-0">
+                <div className="w-full sm:w-96 p-8 shadow-md rounded-md">
+                    <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-gray-800 text-center">LuxuryClothes</h2>
+                    <h3 className="text-lg sm:text-xl mb-6 text-gray-600 text-center">Sign In</h3>
 
                     {/* Botones de Redes Sociales */}
-                    <div className="flex gap-4 mb-4">
+                    <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:gap-4">
                         <button className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700">
                             <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google" className="mr-2" />
                             Sign up with Google
@@ -48,8 +47,8 @@ function Login() {
                     </form>
 
                     {/* Links de Registro y Recuperación */}
-                    <div className="flex justify-between mt-4">
-                        <a href="/register" className="text-blue-500 hover:underline">Register Now</a>
+                    <div className="flex flex-col sm:flex-row justify-between mt-4 text-center sm:text-left">
+                        <a href="/register" className="text-blue-500 hover:underline mb-2 sm:mb-0">Register Now</a>
                         <a href="/forgetpassword" className="text-blue-500 hover:underline">Forgot Password?</a>
                     </div>
                 </div>
@@ -59,4 +58,3 @@ function Login() {
 }
 
 export default Login;
-
