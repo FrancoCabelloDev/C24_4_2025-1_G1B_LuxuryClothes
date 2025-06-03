@@ -6,6 +6,7 @@ import Register from "../components/Auth/Register.jsx";
 import ForgetPassword from "../components/Auth/ForgetPassword.jsx";
 import CodeConfirmation from "../components/Auth/CodeConfirmation.jsx";
 import NewPassword from "../components/Auth/NewPassword.jsx";
+import Profile from "../components/pages/Profile.jsx"; // Asegúrate de que la ruta sea correcta
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/codeconfirmation" element={<CodeConfirmation />} />
             <Route path="/newpassword" element={<NewPassword />} />
+            <Route path="/profile" element={<Profile />} />
         </Routes>
     );
 }

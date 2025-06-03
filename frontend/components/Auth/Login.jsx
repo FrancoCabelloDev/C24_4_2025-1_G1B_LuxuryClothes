@@ -9,17 +9,13 @@ function Login() {
     const handleGoogleSuccess = async (credentialResponse) => {
         try {
             const token = credentialResponse.credential;
-            // Depuración: verifica que el token exista
-            console.log("Google token:", token);
-
             const response = await axios.post("http://localhost:8084/api/auth/google", { token }, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
-
             const user = response.data;
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user)); // Guarda el usuario completo
 
             // Depuración: verifica que el usuario se guarda y navega
             console.log("Usuario autenticado:", user);

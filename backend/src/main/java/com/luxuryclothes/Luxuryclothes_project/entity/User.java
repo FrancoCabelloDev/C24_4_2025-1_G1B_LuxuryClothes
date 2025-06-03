@@ -15,12 +15,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "nombre")
-    private String name;
+    private String nombre;
 
     @Column(name = "contraseña")
     private String password;
+
+    // 🆕 Nuevos campos de perfil
+    @Column(name = "celular")
+    private String celular;
+
+    @Column(name = "direccion")
+    private String direccion;
+
+    @Column(name = "dni")
+    private String dni;
 }

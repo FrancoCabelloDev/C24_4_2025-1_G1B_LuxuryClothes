@@ -19,7 +19,15 @@ public class UserService {
     public User findOrCreate(String email, String name) {
         return repository.findByEmail(email).orElseGet(() -> {
             String fakePassword = encoder.encode(UUID.randomUUID().toString());
-            User newUser = new User(null, email, name, fakePassword);
+            User newUser = new User(
+                null, // id
+                email,
+                name,
+                fakePassword,
+                null, // celular
+                null, // direccion
+                null  // dni
+            );
             logger.info("Registrando nuevo usuario: {}", newUser);
             return repository.save(newUser);
         });
