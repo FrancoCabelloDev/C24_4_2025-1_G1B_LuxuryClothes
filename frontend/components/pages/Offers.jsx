@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import { CartContext } from "../../context/CartContext";
 
 const allProducts = [
   {
@@ -69,6 +70,7 @@ export default function Offers() {
   const [selectedBrand, setSelectedBrand] = useState("Todos");
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [filters, setFilters] = useState({});
+  const { addToCart } = useContext(CartContext);
 
   const dynamicFilters = filtersByCategory[selectedCategory] || {};
 
@@ -118,7 +120,6 @@ export default function Offers() {
 
         {/* CATEGORÍA Y SUBFILTROS */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-          {/* Categoría principal */}
           <select
             value={selectedCategory}
             onChange={(e) => {
@@ -134,7 +135,6 @@ export default function Offers() {
             ))}
           </select>
 
-          {/* Subfiltros dinámicos */}
           {Object.entries(dynamicFilters).map(([key, values]) => (
             <select
               key={key}
@@ -166,7 +166,10 @@ export default function Offers() {
               <div className="p-4">
                 <h2 className="text-xl font-semibold">{product.name}</h2>
                 <p className="text-lg text-gray-800 font-bold mt-2">S/. {product.price.toFixed(2)}</p>
-                <button className="mt-4 w-full bg-black text-white py-2 rounded-full hover:bg-gray-800 transition">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="mt-4 w-full bg-black text-white py-2 rounded-full hover:bg-gray-800 transition"
+                >
                   Agregar al carrito
                 </button>
               </div>

@@ -13,6 +13,7 @@ import Home from "../components/pages/home.jsx";
 import Offers from "../components/pages/Offers.jsx";
 import News from "../components/pages/News.jsx";
 import Packages from "../components/pages/Packages.jsx";
+import Cart from "../components/pages/Cart.jsx"; // ✅ Agregado
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 <Route path="/ofertas" element={<Offers />} />
                 <Route path="/novedades" element={<News />} />
                 <Route path="/paquetes" element={<Packages />} />
+                <Route path="/carrito" element={<Cart />} /> {/* ✅ Ruta del carrito */}
 
                 {/* Autenticación */}
                 <Route path="/login" element={<Login />} />
