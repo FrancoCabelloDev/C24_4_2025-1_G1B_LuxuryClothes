@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../src/context/CartContext";
 
 const allProducts = [
   {

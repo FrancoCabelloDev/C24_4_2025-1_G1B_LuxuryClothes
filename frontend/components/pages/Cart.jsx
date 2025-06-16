@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { CartContext } from "../../context/CartContext";
+import { CartContext } from "../../src/context/CartContext";
 import Header from "../layout/Header"; // Ajusta si tu Header está en otra carpeta
 import Footer from "../layout/Footer";
 
