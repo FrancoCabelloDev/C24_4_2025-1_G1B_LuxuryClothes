@@ -1,5 +1,4 @@
 import React from "react";
-import BrandLogos from "./BrandLogos";
 import {
   FaFacebookF,
   FaInstagram,
@@ -10,8 +9,6 @@ import {
 export default function Footer() {
   return (
     <footer className="bg-gray-50">
-      <BrandLogos />
-
       <div className="bg-black text-white">
         <div className="max-w-4xl mx-auto py-12 px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
