@@ -1,11 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
-import { CartContext } from "../../src/context/CartContext";
 
 export default function Header() {
-  const { cart } = useContext(CartContext);
-  
   // Enlaces de navegación
   const navItems = [
     { label: "Inicio", path: "/" },
@@ -38,10 +34,9 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Sección derecha - Mejor espaciado */}
+        {/* Sección derecha - Solo Iniciar Sesión + Registrarse */}
         <div className="flex items-center">
-          {/* Grupo: Iniciar Sesión + Registrarse */}
-          <div className="hidden md:flex items-center space-x-4 mr-8">
+          <div className="hidden md:flex items-center space-x-4">
             <Link 
               to="/login" 
               className="relative group py-2 px-3 text-gray-700 hover:text-gray-900 font-medium text-sm tracking-wide transition-colors duration-200"
@@ -55,21 +50,6 @@ export default function Header() {
               className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2.5 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 ease-out text-sm font-semibold tracking-wide hover:from-gray-800 hover:to-gray-700"
             >
               Registrarse
-            </Link>
-          </div>
-
-          {/* Carrito separado - Al extremo derecho */}
-          <div className="relative">
-            <Link 
-              to="/carrito" 
-              className="relative p-3 text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-all duration-200 group"
-            >
-              <FaShoppingCart size={22} className="transform group-hover:scale-110 transition-transform duration-200" />
-              {cart.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-gradient-to-r from-red-500 to-red-600 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold shadow-md animate-pulse">
-                  {cart.length > 99 ? '99+' : cart.length}
-                </span>
-              )}
             </Link>
           </div>
         </div>
