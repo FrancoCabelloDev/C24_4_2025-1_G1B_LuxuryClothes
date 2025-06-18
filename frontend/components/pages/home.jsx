@@ -1,11 +1,16 @@
+// src/components/pages/Home.jsx
+
 import React from "react";
+import Header from "../layout/Header";
+import Hero from "../layout/Hero";
+import Footer from "../layout/Footer";
 
-function Home() {
-    return (
-        <div className="flex items-center justify-center h-screen bg-gray-100">
-            <h1 className="text-4xl font-bold">Bienvenido a Luxury Clothes</h1>
-        </div>
-    );
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-white text-gray-900 flex flex-col">
+      <Header />
+      <Hero />
+      <Footer />
+    </div>
+  );
 }
-
-export default Home;
