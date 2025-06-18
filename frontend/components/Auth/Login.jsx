@@ -15,11 +15,9 @@ function Login() {
                 }
             });
             const user = response.data;
-            localStorage.setItem("user", JSON.stringify(user)); // Guarda el usuario completo
-
-            // Depuración: verifica que el usuario se guarda y navega
-            console.log("Usuario autenticado:", user);
-            navigate("/welcome");
+            localStorage.setItem("user", JSON.stringify(user));
+            // Redirige directamente al home
+            navigate("/");
         } catch (error) {
             console.error("Error al autenticar:", error);
         }
@@ -32,14 +30,19 @@ function Login() {
             <div className="w-1/2 flex justify-center items-center bg-white">
                 <div className="w-96 p-8 shadow-md rounded-md">
                     <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
-                    <h3 className="text-xl mb-6 text-gray-600">Sign In</h3>
 
-                    <div className="flex gap-4 mb-4">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={() => console.log("Login Failed")}
-                            width="100%"
-                        />
+                    <div className="flex justify-center mb-4">
+                        <div style={{ minWidth: 260, maxWidth: 340, width: "100%", display: "flex", justifyContent: "center" }}>
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => console.log("Login Failed")}
+                                width="340"
+                                size="large"
+                                theme="outline"
+                                text="signin_with"
+                                shape="rectangular"
+                            />
+                        </div>
                     </div>
 
                     <div className="text-center my-4 text-gray-400">— OR —</div>

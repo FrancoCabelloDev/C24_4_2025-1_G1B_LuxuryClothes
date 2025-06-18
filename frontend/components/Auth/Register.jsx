@@ -37,15 +37,21 @@ function Register() {
             <div className="w-1/2 flex justify-center items-center bg-white">
                 <div className="w-96 p-8 shadow-md rounded-md">
                     <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
-                    <h3 className="text-xl mb-6 text-gray-600">Create Account</h3>
 
                     {/* Botón de Google */}
-                    <div className="flex gap-4 mb-4">
-                        <GoogleLogin
-                            onSuccess={handleGoogleSuccess}
-                            onError={() => console.log("Google Register Failed")}
-                            width="100%"
-                        />
+                    <div className="flex justify-center mb-4">
+                        <div style={{ minWidth: 260, maxWidth: 340, width: "100%", display: "flex", justifyContent: "center" }}>
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => console.log("Google Register Failed")}
+                                width="340"
+                                size="large"
+                                theme="outline"
+                                text="continue_with" // Cambia el texto del botón
+                                shape="rectangular"
+                                locale="es" // Opcional: fuerza el idioma a español
+                            />
+                        </div>
                     </div>
 
                     {/* Línea Divisoria */}
