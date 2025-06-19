@@ -5,7 +5,7 @@ export default function Header() {
   // Enlaces de navegación
   const navItems = [
     { label: "Inicio", path: "/" },
-    { label: "Ofertas", path: "/ofertas" },
+    { label: "Productos", path: "/productos" },
     { label: "Novedades", path: "/novedades" },
     { label: "Paquetes", path: "/paquetes" },
   ];

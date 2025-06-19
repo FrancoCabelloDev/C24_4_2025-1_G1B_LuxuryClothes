@@ -11,7 +11,7 @@ import NewPassword from "../components/Auth/NewPassword.jsx";
 
 // Páginas principales
 import Home from "../components/pages/home.jsx";
-import Offers from "../components/pages/Offers.jsx";
+import Shop from "../components/pages/Shop.jsx";
 import News from "../components/pages/News.jsx";
 import Packages from "../components/pages/Packages.jsx";
 import Cart from "../components/pages/Cart.jsx";
@@ -23,7 +23,7 @@ function App() {
                 <Routes>
                     {/* Páginas del sitio */}
                     <Route path="/" element={<Home />} />
-                    <Route path="/ofertas" element={<Offers />} />
+                    <Route path="/productos" element={<Shop />} />
                     <Route path="/novedades" element={<News />} />
                     <Route path="/paquetes" element={<Packages />} />
                     <Route path="/carrito" element={<Cart />} />
