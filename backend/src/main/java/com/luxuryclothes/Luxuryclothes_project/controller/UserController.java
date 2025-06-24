@@ -2,16 +2,20 @@ package com.luxuryclothes.Luxuryclothes_project.controller;
 
 import com.luxuryclothes.Luxuryclothes_project.entity.User;
 import com.luxuryclothes.Luxuryclothes_project.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
-@RequiredArgsConstructor
 public class UserController {
 
     private final UserRepository userRepository;
+
+    @Autowired
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/profile")
     public ResponseEntity<User> getProfile(@RequestParam String email) {

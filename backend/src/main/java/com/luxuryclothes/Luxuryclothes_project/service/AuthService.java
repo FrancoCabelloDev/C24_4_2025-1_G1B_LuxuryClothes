@@ -5,15 +5,17 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.luxuryclothes.Luxuryclothes_project.entity.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 
 @Service
-@RequiredArgsConstructor
 public class AuthService {
     private final UserService userService;
+
+    public AuthService(UserService userService) {
+        this.userService = userService;
+    }
 
     public User verifyAndLogin(String token) throws Exception {
         GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
