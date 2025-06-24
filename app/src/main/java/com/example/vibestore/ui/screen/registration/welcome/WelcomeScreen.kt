@@ -122,22 +122,22 @@ fun WelcomeScreen(
                     dialog?.dismissWithAnimation()
                     dialog = DialogHelper.showDialogLoading(
                         context = context,
-                        textContent = "Please wait"
+                        textContent = "Espere por favor"
                     )
                     delay(1000)
                     viewModel.addNotification(
                         notification = Notification(
-                            notificationType = "Info",
-                            message = "Welcome to Vibe Store🎇",
-                            messageDetail = "We’re thrilled to have you on board! " +
-                                    "Explore amazing deals and start shopping now."
+                            notificationType = "Información",
+                            message = "Bienvenido a Luxury Clothes🎇",
+                            messageDetail = "Vístete para destacar, vive para impresionar " +
+                                    "Explora ofertas increíbles y comienza a comprar ahora."
                         )
                     )
                     dialog?.dismissWithAnimation()
                     dialog = DialogHelper.showDialogSuccess(
                         context = context,
                         title = "Success",
-                        textContent = "Welcome to Vibe Store",
+                        textContent = "Bienvenido a Luxury Clothes",
                         onConfirm = {
                             systemUiController.setSystemBarsColor(
                                 color = Color.Transparent,
@@ -342,7 +342,7 @@ fun BottomSheetWelcomeContent(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = stringResource(R.string.login) + " to Vibe Store",
+                    text = stringResource(R.string.login) + " a Luxury Clothes",
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.onPrimary,
                     modifier = Modifier
@@ -368,7 +368,7 @@ fun BottomSheetWelcomeContent(
                         .padding(end = 20.dp)
                 )
 
-                Text(text = "or")
+                Text(text = "o")
 
                 Divider(
                     thickness = 1.dp,

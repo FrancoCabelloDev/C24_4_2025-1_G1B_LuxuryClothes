@@ -67,7 +67,7 @@ fun FavouriteItem(
                 maxLines = 2
             )
             Text(
-                text = "Category : $category",
+                text = "Categoría : $category",
                 fontFamily = poppinsFontFamily,
                 fontSize = 12.sp,
                 maxLines = 1,
@@ -75,7 +75,7 @@ fun FavouriteItem(
             )
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
-                text = "$$price",
+                text = "S/.$price",
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium
             )

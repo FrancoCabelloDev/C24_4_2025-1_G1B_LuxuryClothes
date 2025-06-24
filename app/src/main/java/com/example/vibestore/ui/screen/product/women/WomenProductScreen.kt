@@ -45,7 +45,7 @@ fun WomenProductScreen(
     viewmodel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                viewmodel.getProductByCategory("women's clothing", limit)
+                viewmodel.getProductByCategory("ropa de mujer", limit)
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.background)
@@ -83,7 +83,7 @@ fun WomenProductScreen(
                                 viewmodel.addToCart(it)
                                 scope.launch {
                                     snackbarHostState.showSnackbar(
-                                        message = "Product added to cart"
+                                        message = "Producto añadido al carrito"
                                     )
                                 }
                             }

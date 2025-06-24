@@ -103,7 +103,7 @@ fun HomeScreen(
                                 .size(30.dp)
                         )
                         Text(
-                            text = "Vibe",
+                            text = "Luxury",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.Bold,
                             fontSize = 18.sp,
@@ -115,7 +115,7 @@ fun HomeScreen(
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "Store",
+                            text = "Clothes",
                             fontFamily = poppinsFontFamily,
                             fontSize = 18.sp,
                             modifier = Modifier

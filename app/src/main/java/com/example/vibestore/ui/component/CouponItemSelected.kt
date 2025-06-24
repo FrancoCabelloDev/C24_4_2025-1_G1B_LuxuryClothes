@@ -64,7 +64,7 @@ fun CouponItemSelected(
                 modifier = Modifier.padding(end = 13.dp)
             ) {
                 Text(
-                    text = "Coupon applied",
+                    text = "Cupón aplicado",
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.primary,
                     fontFamily = poppinsFontFamily,
@@ -101,7 +101,7 @@ fun CouponInactiveSelected(modifier: Modifier = Modifier) {
     ) {
         Box(modifier = Modifier.fillMaxSize()){
             Text(
-                text = "Apply Coupon",
+                text = "Aplicar cupón",
                 fontSize = 14.sp,
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
@@ -124,7 +124,7 @@ private fun CouponInactiveSelectedPreview() {
 private fun CouponItemPreview() {
     VibeStoreTheme(dynamicColor = false) {
         CouponItemSelected(
-            discountTittle = "FREE SHIPPING"
+            discountTittle = "Envío Gratis"
         )
     }
 }

@@ -109,7 +109,7 @@ fun NotificationScreen(
                 ) {
                     NoNotificationAnimation(modifier = Modifier.size(150.dp))
                     Text(
-                        text = "You don't have any notification yet",
+                        text = "Aún no tienes ninguna notificación",
                         fontFamily = poppinsFontFamily,
                         color = MaterialTheme.colorScheme.outline
                     )

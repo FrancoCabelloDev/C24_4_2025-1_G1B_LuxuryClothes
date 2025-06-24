@@ -96,7 +96,7 @@ fun AddressItemScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Edit",
+                    text = "Editar",
                     fontSize = 14.sp,
                     fontFamily = poppinsFontFamily,
                 )

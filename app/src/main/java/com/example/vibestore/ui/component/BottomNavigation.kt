@@ -50,31 +50,31 @@ fun BottomNavigation(
         val currentRoute = navBackStackEntry?.destination?.route
         val navigationItems = listOf(
             NavigationItem(
-                title = "Home",
+                title = "Inicio",
                 icon = painterResource(R.drawable.icon_home_outlined),
                 iconActive = painterResource(R.drawable.icon_home_filled),
                 screen = Screen.Home
             ),
             NavigationItem(
-                title = "Product",
+                title = "Producto",
                 icon = painterResource(R.drawable.icon_shopping_bag_outlined),
                 iconActive = painterResource(R.drawable.icon_shopping_bag_filled),
                 screen = Screen.OurProduct
             ),
             NavigationItem(
-                title = "Coupon",
+                title = "Cupón",
                 icon = painterResource(R.drawable.icon_coupon_outlined),
                 iconActive = painterResource(R.drawable.icon_coupon_filled),
                 screen = Screen.Coupon
             ),
             NavigationItem(
-                title = "Favourite",
+                title = "Favoritos",
                 icon = painterResource(R.drawable.icon_favourite_outlined),
                 iconActive = painterResource(R.drawable.icon_favourite_filled),
                 screen = Screen.Favourite
             ),
             NavigationItem(
-                title = "Profile",
+                title = "Perfil",
                 icon = painterResource(R.drawable.icon_profile_outlined),
                 iconActive = painterResource(R.drawable.icon_profile_filled),
 

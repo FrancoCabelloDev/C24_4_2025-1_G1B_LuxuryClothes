@@ -209,7 +209,7 @@ fun PaymentContent(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Payment Summary",
+                    text = "Resúmen de pago",
                     fontWeight = FontWeight.SemiBold
                 )
                 Row(
@@ -219,12 +219,12 @@ fun PaymentContent(
                     Text(
                         modifier = Modifier.weight(1f),
                         fontFamily = poppinsFontFamily,
-                        text = "Final Price",
+                        text = "Precio final",
                         color = MaterialTheme.colorScheme.outline
                     )
                     Text(
                         fontFamily = poppinsFontFamily,
-                        text = "$${"%.2f".format(latestCheckout?.totalPrice)}",
+                        text = "S/.${"%.2f".format(latestCheckout?.totalPrice)}",
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -246,7 +246,7 @@ fun PaymentContent(
                 ) {
                     Text(
                         fontFamily = poppinsFontFamily,
-                        text = "Pay Now",
+                        text = "Pagar ahora",
                         fontSize = 16.sp,
                         color = Color.White
                     )

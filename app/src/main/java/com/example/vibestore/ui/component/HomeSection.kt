@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 @Composable
 fun HomeSection(
     title: String,
-    title2: String = "See all",
+    title2: String = "Ver todo",
     content: @Composable () -> Unit,
     navigateToSeeAll: () -> Unit,
 ) {

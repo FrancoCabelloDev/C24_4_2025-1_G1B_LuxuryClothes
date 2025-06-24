@@ -99,7 +99,7 @@ fun FavouriteScreen(
                         modifier = Modifier.size(200.dp)
                     )
                     Text(
-                        text = "You don't have any favourite items",
+                        text = "No tienes ningún artículo favorito",
                         fontFamily = poppinsFontFamily,
                         color = MaterialTheme.colorScheme.outline
                     )

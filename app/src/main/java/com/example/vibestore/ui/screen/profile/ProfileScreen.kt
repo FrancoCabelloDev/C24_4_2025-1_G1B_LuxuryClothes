@@ -217,14 +217,14 @@ fun ProfileScreen(
                         .clickable {
                             dialog = DialogHelper.showDialogWarning(
                                 context = context,
-                                title = "Log out",
-                                textContent = "Are you sure you want to log out?",
+                                title = "Cerrar Sesión",
+                                textContent = "¿Estás seguro que deseas salir?",
                                 onDismis = { dialog?.dismissWithAnimation() },
                                 onConfirm = {
                                     dialog?.dismissWithAnimation()
                                     dialog = DialogHelper.showDialogLoading(
                                         context = context,
-                                        textContent = "Please wait"
+                                        textContent = "Por favor espere"
                                     )
                                     scope.launch {
                                         delay(2000)
@@ -235,7 +235,7 @@ fun ProfileScreen(
                                         Toast
                                             .makeText(
                                                 context,
-                                                "Log out success",
+                                                "Cerró sesión exitosamente",
                                                 Toast.LENGTH_SHORT
                                             )
                                             .show()

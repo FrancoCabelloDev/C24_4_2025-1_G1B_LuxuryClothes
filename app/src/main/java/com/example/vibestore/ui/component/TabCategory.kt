@@ -56,11 +56,11 @@ fun TabCategory(
     val category by remember {
         mutableStateOf(
             listOf(
-                "All",
-                "Men",
-                "Women",
-                "Electronics",
-                "Jewelery",
+                "Variado",
+                "Hombres",
+                "Mujeres",
+                "Niños",
+                "VIP",
             )
         )
     }

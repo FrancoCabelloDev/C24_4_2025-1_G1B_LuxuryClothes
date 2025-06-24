@@ -145,12 +145,12 @@ fun MyCartScreen(
                             .size(100.dp)
                     )
                     Text(
-                        text = "Cart is empty",
+                        text = "Carrito está vacío",
                         fontFamily = poppinsFontFamily,
                         color = MaterialTheme.colorScheme.outline
                     )
                     Text(
-                        text = "C'mon add some items",
+                        text = "¡Añade algunos productos!",
                         fontFamily = poppinsFontFamily,
                         color = MaterialTheme.colorScheme.outline
                     )
@@ -260,11 +260,11 @@ fun MyCartContent(
                     .fillMaxWidth()
             ) {
                 RoundedCornerCheckbox(
-                    label = "Select All",
+                    label = "Seleccionar",
                     isChecked = checkedAllValue,
                     onValueChange = onCheckedAllChange,
                     modifier = Modifier
-                        .padding(end = 32.dp)
+                        .padding(end = 20.dp)
                 )
                 Column(modifier = Modifier.weight(1f)){
                     Text(
@@ -278,8 +278,8 @@ fun MyCartContent(
                         modifier = Modifier.weight(1f),
                         fontFamily = poppinsFontFamily,
                         fontWeight = FontWeight.SemiBold,
-                        fontSize = 18.sp,
-                        text = "\$${"%.2f".format(totalPrice)}"
+                        fontSize = 15.sp,
+                        text = "S/.${"%.2f".format(totalPrice)}"
                     )
                 }
                 Spacer(modifier = Modifier.size(16.dp))

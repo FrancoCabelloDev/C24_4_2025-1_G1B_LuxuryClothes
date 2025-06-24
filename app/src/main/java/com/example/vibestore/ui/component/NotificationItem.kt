@@ -152,9 +152,9 @@ private fun NotificationItemPreview() {
     VibeStoreTheme(dynamicColor = false
     ) {
         NotificationItem(
-            notificationType = "Shopping",
-            date = "20 Agustus 2023",
-            message = "Your order has been shipped",
+            notificationType = "Envío",
+            date = "20 Agustus 2025",
+            message = "Su pedido ha sido enviado",
             firstProductImage = "",
             firstProductName = "Men's Casual Slim Fit Shirt",
             quantityCheckout = 2,
@@ -171,9 +171,9 @@ private fun NotificationItemPreview2() {
     ) {
         NotificationItem(
             notificationType = "Info",
-            date = "20 Agustus 2023",
-            message = "Welcome to Vibe Store 🙌",
-            messageDetail = "We’re thrilled to have you on board! Explore amazing deals and start shopping now.",
+            date = "20 Agustus 2025",
+            message = "Bienvenido a Luxury Store 🙌",
+            messageDetail = "¡Nos encanta tenerte a bordo! Explora ofertas increíbles y empieza a comprar ya.",
             isRead = false,
             onNotificationClick = {}
         )

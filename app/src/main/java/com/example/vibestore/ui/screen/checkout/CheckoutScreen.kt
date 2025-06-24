@@ -542,7 +542,7 @@ fun CartItemDialog(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Your Order",
+                    text = "Tus pedidos",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp

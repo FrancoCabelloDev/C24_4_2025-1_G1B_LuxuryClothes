@@ -60,7 +60,7 @@ fun Search(
         ),
         placeholder = {
             Text(
-                text = "Search Items",
+                text = "Buscar",
                 fontFamily = poppinsFontFamily,
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.outline,

@@ -310,7 +310,7 @@ fun DetailContent(
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 40.sp,
-                    text = "$${product.price}"
+                    text = "S/.${product.price}"
                 )
                 Button(
                     modifier = Modifier
@@ -381,10 +381,10 @@ private fun DetailScreenPreview() {
         DetailContent(
             product = ProductResponseItem(
                 id = 1,
-                title = "Nasi Padang",
+                title = "Camisa Sport",
                 price = 23.22,
-                description = "Makanan khas Indonesia",
-                category = "Makanan",
+                description = "100% ALGODÓN",
+                category = "Sport",
                 image = "",
                 rating = Rating(
                     count = 200,

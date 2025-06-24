@@ -47,7 +47,7 @@ fun ShippingItem(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "$name ($$price)",
+                    text = "$name (S/.$price)",
                     fontSize = 14.sp,
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
@@ -76,7 +76,7 @@ private fun ShippingItemPreview() {
             onChoose = {},
             name = "REG",
             price = 13.00,
-            description = "Estimated time of arrival 2 - 3 days"
+            description = "Tiempo estimado de llegada 2 - 3 días"
         )
     }
 }

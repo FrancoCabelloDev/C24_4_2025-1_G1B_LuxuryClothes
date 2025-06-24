@@ -89,7 +89,7 @@ fun AllProductScreen(
                                 scope.launch {
                                     snackbarHostState
                                         .showSnackbar(
-                                            message = "Product added to cart",
+                                            message = "Producto añadido al carrito",
                                             duration = SnackbarDuration.Short
                                         )
                                 }

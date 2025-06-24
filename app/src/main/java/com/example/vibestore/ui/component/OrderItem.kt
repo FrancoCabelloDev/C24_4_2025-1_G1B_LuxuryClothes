@@ -95,7 +95,7 @@ fun OrderItem(
                         .padding(4.dp)
                 ) {
                     Text(
-                        text = "Shipping",
+                        text = "Envío",
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.primary,
                         fontFamily = poppinsFontFamily,
@@ -138,7 +138,7 @@ fun OrderItem(
             }
             Column {
                 Text(
-                    text = "Total Order",
+                    text = "Pedido Total",
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.outline,
                     fontWeight = FontWeight.Light,
@@ -146,7 +146,7 @@ fun OrderItem(
                     modifier = Modifier
                 )
                 Text(
-                    text = "$${"%.2f".format(totalPrice)}",
+                    text = "S/.${"%.2f".format(totalPrice)}",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.SemiBold,
                     fontFamily = poppinsFontFamily,
@@ -164,7 +164,7 @@ private fun OrderItemPreview() {
         dynamicColor = false
     ) {
         OrderItem(
-            date = "4 September 2023",
+            date = "4 Septiembre 2025",
             firstOrderItemName = "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
             otherOrderQuantity = 1,
             totalPrice = 100.0,

@@ -78,8 +78,8 @@ private fun CouponItemPreview() {
             onChoose = {},
             isChoose = false,
             discount = "25%",
-            description = "Applies to get 25% off",
-            expiredDate = "31 Desember 2024",
+            description = "Aplica para obtener un 25% de descuento",
+            expiredDate = "31 Diciembre 2025",
             color1 = Color(0xFFFFA726),
             color2 = Color(0xFFFFD54F)
         )

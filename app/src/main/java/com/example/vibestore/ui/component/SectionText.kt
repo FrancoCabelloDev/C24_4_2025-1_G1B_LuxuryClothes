@@ -35,7 +35,7 @@ fun SectionText(
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier
                 .weight(1f),
-            fontSize = 18.sp
+            fontSize = 16.sp
         )
         Text(
             text = text2,
@@ -54,6 +54,6 @@ fun SectionText(
 @Composable
 private fun SectionTextPreview() {
     VibeStoreTheme {
-        SectionText("Categories", "See all")
+        SectionText("Categorías", "Ver todo")
     }
 }

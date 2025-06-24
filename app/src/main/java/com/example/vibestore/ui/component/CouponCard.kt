@@ -95,7 +95,7 @@ fun CouponCard(
                     fontSize = fontSizeDescription.sp
                 )
                 Text(
-                    text = "Valid until $expiredDate",
+                    text = "Válido hasta $expiredDate",
                     fontWeight = FontWeight.Light,
                     fontFamily = poppinsFontFamily,
                     color = Color.White,
@@ -186,7 +186,7 @@ fun CouponCard2(
                     color = Color.White,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
-                    fontSize = if (discount == "FREE SHIPPING") 16.sp
+                    fontSize = if (discount == "Envío Gratis") 16.sp
                     else 30.sp,
                     modifier = Modifier.rotate(270f)
                 )
@@ -240,10 +240,10 @@ private fun CouponCardPreview2() {
     ) {
         CouponCard2(
             modifier = Modifier.padding(16.dp),
-            discount = "FREE SHIPPING",
-            description = "Applies to get 25% off",
-            expiredDate = "31 Desember 2024",
-            couponCode = "ADERTS4TA"
+            discount = "Envío Gratis",
+            description = "Aplica para obtener un 25% de descuento",
+            expiredDate = "31 Diciembre 2025",
+            couponCode = "KuNKK4"
         )
     }
 }
@@ -254,8 +254,8 @@ private fun CouponCardPreview() {
     VibeStoreTheme {
         CouponCard(
             discount = "25%",
-            description = "Applies to get 25% off",
-            expiredDate = "31 Desember 2024",
+            description = "Aplica para obtener un 25% de descuento",
+            expiredDate = "31 Diciembre 2025",
             color1 = Color(0xFFDA22FF),
             color2 = Color(0xFF9733EE)
         )
