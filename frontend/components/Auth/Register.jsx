@@ -1,7 +1,28 @@
 // src/components/Auth/Register.jsx
 import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+    const navigate = useNavigate();
+
+    const handleGoogleSuccess = async (credentialResponse) => {
+        try {
+            const token = credentialResponse.credential;
+            const response = await axios.post("http://localhost:8084/api/auth/google", { token }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+            const user = response.data;
+            localStorage.setItem("user", JSON.stringify(user));
+            navigate("/welcome");
+        } catch (error) {
+            console.error("Error al registrar con Google:", error);
+        }
+    };
+
     return (
         <div className="flex h-screen">
             {/* Imagen de Fondo */}
@@ -16,26 +37,21 @@ function Register() {
             <div className="w-1/2 flex justify-center items-center bg-white">
                 <div className="w-96 p-8 shadow-md rounded-md">
                     <h2 className="text-4xl font-bold mb-4 text-gray-800">LuxuryClothes</h2>
-                    <h3 className="text-xl mb-6 text-gray-600">Create Account</h3>
 
-                    {/* Botones de Redes Sociales */}
-                    <div className="flex gap-4 mb-4">
-                        <button className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700">
-                            <img
-                                src="https://img.icons8.com/color/24/google-logo.png"
-                                alt="Google"
-                                className="mr-2"
+                    {/* Botón de Google */}
+                    <div className="flex justify-center mb-4">
+                        <div style={{ minWidth: 260, maxWidth: 340, width: "100%", display: "flex", justifyContent: "center" }}>
+                            <GoogleLogin
+                                onSuccess={handleGoogleSuccess}
+                                onError={() => console.log("Google Register Failed")}
+                                width="340"
+                                size="large"
+                                theme="outline"
+                                text="continue_with" // Cambia el texto del botón
+                                shape="rectangular"
+                                locale="es" // Opcional: fuerza el idioma a español
                             />
-                            Sign up with Google
-                        </button>
-                        <button className="flex items-center justify-center w-full border border-gray-300 rounded-md px-4 py-2 text-gray-700">
-                            <img
-                                src="https://img.icons8.com/color/24/gmail.png"
-                                alt="Email"
-                                className="mr-2"
-                            />
-                            Sign up with Email
-                        </button>
+                        </div>
                     </div>
 
                     {/* Línea Divisoria */}

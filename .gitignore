@@ -18,6 +18,14 @@ dist/
 .env.test.local
 .env.production.local
 
+# Python virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
 # IDE files
 .vscode/
 .idea/
