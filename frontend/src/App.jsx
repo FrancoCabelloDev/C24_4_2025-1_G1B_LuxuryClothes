@@ -15,6 +15,7 @@ import Shop from "../components/pages/Shop.jsx";
 import News from "../components/pages/News.jsx";
 import Packages from "../components/pages/Packages.jsx";
 import Cart from "../components/pages/Cart.jsx";
+import Checkout from "../components/pages/Checkout.jsx"; // ✅ AGREGAR ESTA LÍNEA
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/novedades" element={<News />} />
                     <Route path="/paquetes" element={<Packages />} />
                     <Route path="/carrito" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} /> {/* ✅ AGREGAR ESTA LÍNEA */}
 
                     {/* Autenticación */}
                     <Route path="/login" element={<Login />} />

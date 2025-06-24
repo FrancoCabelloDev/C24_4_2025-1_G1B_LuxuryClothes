@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { FaThLarge, FaList, FaChevronDown, FaChevronUp, FaShoppingCart, FaArrowUp } from "react-icons/fa";
+import { FaThLarge, FaList, FaChevronDown, FaChevronUp, FaShoppingCart, FaArrowUp, FaPlus, FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -253,11 +253,39 @@ export default function Shop() {
     tags: false
   });
 
+  // Estado para manejar cantidades de cada producto
+  const [productQuantities, setProductQuantities] = useState({});
+
   const { cart, addToCart } = useContext(CartContext);
   const itemsPerPage = 6;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Función para manejar cambio de cantidad por producto
+  const handleQuantityChange = (productId, newQuantity) => {
+    if (newQuantity < 1) return;
+    setProductQuantities(prev => ({
+      ...prev,
+      [productId]: newQuantity
+    }));
+  };
+
+  // Función para agregar al carrito con cantidad específica
+  const handleAddToCart = (product) => {
+    const quantity = productQuantities[product.id] || 1;
+    const productWithQuantity = {
+      ...product,
+      quantity: quantity
+    };
+    addToCart(productWithQuantity);
+    
+    // Resetear cantidad después de agregar
+    setProductQuantities(prev => ({
+      ...prev,
+      [product.id]: 1
+    }));
   };
 
   const toggleSection = (section) => {
@@ -395,7 +423,7 @@ export default function Shop() {
             <nav className="text-sm">
               <span className="text-gray-500">Inicio</span>
               <span className="mx-2 text-gray-500">/</span>
-              <span className="text-gray-900 font-medium">Fashion</span>
+              <span className="text-gray-900 font-medium">Productos</span>
             </nav>
           </div>
         </div>
@@ -597,7 +625,7 @@ export default function Shop() {
             <div className="lg:w-3/4">
               {/* Header de Productos */}
               <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Fashion</h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4 sm:mb-0">Productos</h1>
                 
                 <div className="flex items-center gap-4">
                   {/* Ordenamiento */}
@@ -636,67 +664,102 @@ export default function Shop() {
                   ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3' 
                   : 'grid-cols-1'
               }`}>
-                {paginatedProducts.map(product => (
-                  <div
-                    key={product.id}
-                    className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group ${
-                      viewMode === 'list' ? 'flex' : ''
-                    }`}
-                  >
-                    <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
-                          viewMode === 'list' ? 'w-full h-full' : 'w-full h-64'
-                        }`}
-                      />
-                      {product.originalPrice && (
-                        <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                          Oferta
-                        </div>
-                      )}
-                      <div className="absolute top-3 right-3 bg-black text-white px-2 py-1 rounded-full text-xs font-medium">
-                        {product.gender}
-                      </div>
-                    </div>
-                    
-                    <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xl font-bold text-gray-900">
-                          S/. {product.price.toFixed(2)}
-                        </span>
+                {paginatedProducts.map(product => {
+                  const currentQuantity = productQuantities[product.id] || 1;
+                  
+                  return (
+                    <div
+                      key={product.id}
+                      className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group ${
+                        viewMode === 'list' ? 'flex' : ''
+                      }`}
+                    >
+                      <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
+                            viewMode === 'list' ? 'w-full h-full' : 'w-full h-64'
+                          }`}
+                        />
                         {product.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">
-                            S/. {product.originalPrice.toFixed(2)}
-                          </span>
+                          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                            Oferta
+                          </div>
                         )}
+                        <div className="absolute top-3 right-3 bg-black text-white px-2 py-1 rounded-full text-xs font-medium">
+                          {product.gender}
+                        </div>
                       </div>
                       
-                      {/* Colores disponibles */}
-                      <div className="flex gap-1 mb-4">
-                        {product.colors.map(colorValue => {
-                          const colorOption = colorOptions.find(c => c.value === colorValue);
-                          return colorOption ? (
-                            <div
-                              key={colorValue}
-                              className="w-4 h-4 rounded-full border border-gray-300"
-                              style={{ backgroundColor: colorOption.hex }}
-                            />
-                          ) : null;
-                        })}
-                      </div>
+                      <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl font-bold text-gray-900">
+                            S/. {product.price.toFixed(2)}
+                          </span>
+                          {product.originalPrice && (
+                            <span className="text-sm text-gray-500 line-through">
+                              S/. {product.originalPrice.toFixed(2)}
+                            </span>
+                          )}
+                        </div>
+                        
+                        {/* Colores disponibles */}
+                        <div className="flex gap-1 mb-4">
+                          {product.colors.map(colorValue => {
+                            const colorOption = colorOptions.find(c => c.value === colorValue);
+                            return colorOption ? (
+                              <div
+                                key={colorValue}
+                                className="w-4 h-4 rounded-full border border-gray-300"
+                                style={{ backgroundColor: colorOption.hex }}
+                              />
+                            ) : null;
+                          })}
+                        </div>
 
-                      <button
-                        onClick={() => addToCart(product)}
-                        className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors font-medium"
-                      >
-                        Agregar al Carrito
-                      </button>
+                        {/* Selector de cantidad */}
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="text-sm font-medium text-gray-700">Cantidad:</span>
+                          <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden">
+                            <button
+                              onClick={() => handleQuantityChange(product.id, currentQuantity - 1)}
+                              className="p-2 hover:bg-gray-100 transition-colors"
+                              disabled={currentQuantity <= 1}
+                            >
+                              <FaMinus size={12} className={currentQuantity <= 1 ? 'text-gray-300' : 'text-gray-600'} />
+                            </button>
+                            <span className="px-4 py-2 text-sm font-medium bg-gray-50 min-w-[3rem] text-center">
+                              {currentQuantity}
+                            </span>
+                            <button
+                              onClick={() => handleQuantityChange(product.id, currentQuantity + 1)}
+                              className="p-2 hover:bg-gray-100 transition-colors"
+                            >
+                              <FaPlus size={12} className="text-gray-600" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Subtotal */}
+                        <div className="text-center mb-3">
+                          <span className="text-sm text-gray-600">Subtotal: </span>
+                          <span className="text-lg font-bold text-gray-900">
+                            S/. {(product.price * currentQuantity).toFixed(2)}
+                          </span>
+                        </div>
+
+                        <button
+                          onClick={() => handleAddToCart(product)}
+                          className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+                        >
+                          Agregar al Carrito ({currentQuantity})
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Mensaje si no hay productos */}
@@ -734,9 +797,8 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* Carrito flotante - Copiado desde Hero.jsx */}
+        {/* Carrito flotante */}
         <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
-          {/* Carrito flotante con funcionalidad completa */}
           <Link 
             to="/carrito"
             className="relative bg-black text-white p-4 rounded-full shadow-xl hover:bg-gray-800 hover:shadow-2xl transform hover:scale-110 transition-all duration-300 group"
@@ -749,7 +811,6 @@ export default function Shop() {
             )}
           </Link>
           
-          {/* Botón back to top */}
           <button 
             onClick={scrollToTop}
             className="bg-white text-black p-4 rounded-full shadow-xl hover:bg-gray-100 hover:shadow-2xl transform hover:scale-110 transition-all duration-300 border border-gray-200 group"
