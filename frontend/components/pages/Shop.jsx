@@ -1,209 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FaThLarge, FaList, FaChevronDown, FaChevronUp, FaShoppingCart, FaArrowUp, FaPlus, FaMinus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { CartContext } from "../../src/context/CartContext";
-
-const allProducts = [
-  // PRODUCTOS PARA MUJER
-  {
-    id: 1,
-    name: "Elegante Vestido Negro",
-    price: 189.00,
-    originalPrice: null,
-    brand: "Elegant Fashion",
-    category: "Vestidos",
-    color: "Negro",
-    size: "M",
-    collection: "Nuevos",
-    gender: "Mujer",
-    tags: ["Dress", "Elegant", "Party"],
-    image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "navy"],
-    rating: 4.8
-  },
-  {
-    id: 2,
-    name: "Blusa de Seda Floral",
-    price: 125.00,
-    originalPrice: null,
-    brand: "Silk Style",
-    category: "Blusas",
-    color: "Rosa",
-    size: "S",
-    collection: "Bestsellers",
-    gender: "Mujer",
-    tags: ["Blouse", "Silk", "Floral"],
-    image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=400&h=500&fit=crop&crop=center",
-    colors: ["pink", "white"],
-    rating: 4.7
-  },
-  {
-    id: 3,
-    name: "Falda Midi Plisada",
-    price: 98.00,
-    originalPrice: 120.00,
-    brand: "Modern Skirts",
-    category: "Faldas",
-    color: "Beige",
-    size: "M",
-    collection: "Ofertas",
-    gender: "Mujer",
-    tags: ["Skirt", "Midi", "Pleated"],
-    image: "https://images.unsplash.com/photo-1583496661160-fb5886a13d27?w=400&h=500&fit=crop&crop=center",
-    colors: ["beige", "black"],
-    rating: 4.5
-  },
-  {
-    id: 4,
-    name: "Tacones de Cuero",
-    price: 156.00,
-    originalPrice: null,
-    brand: "Luxury Heels",
-    category: "Zapatos",
-    color: "Negro",
-    size: "L",
-    collection: "Vintage",
-    gender: "Mujer",
-    tags: ["Heels", "Leather", "Elegant"],
-    image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "brown"],
-    rating: 4.9
-  },
-  {
-    id: 5,
-    name: "Bolso de Mano Premium",
-    price: 210.00,
-    originalPrice: null,
-    brand: "Luxury Bags",
-    category: "Accesorios",
-    color: "Negro",
-    size: "M",
-    collection: "Nuevos",
-    gender: "Mujer",
-    tags: ["Handbag", "Premium", "Luxury"],
-    image: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "brown"],
-    rating: 4.8
-  },
-
-  // PRODUCTOS PARA HOMBRE
-  {
-    id: 6,
-    name: "Camisa Formal Blanca",
-    price: 145.00,
-    originalPrice: null,
-    brand: "Formal Wear",
-    category: "Camisas",
-    color: "Blanco",
-    size: "L",
-    collection: "Bestsellers",
-    gender: "Hombre",
-    tags: ["Shirt", "Formal", "Business"],
-    image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&h=500&fit=crop&crop=center",
-    colors: ["white", "blue"],
-    rating: 4.7
-  },
-  {
-    id: 7,
-    name: "Pantalón Chino Casual",
-    price: 89.00,
-    originalPrice: 110.00,
-    brand: "Casual Men",
-    category: "Pantalones",
-    color: "Gris",
-    size: "M",
-    collection: "Ofertas",
-    gender: "Hombre",
-    tags: ["Pants", "Chino", "Casual"],
-    image: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=400&h=500&fit=crop&crop=center",
-    colors: ["gray", "black"],
-    rating: 4.4
-  },
-  {
-    id: 8,
-    name: "Chaqueta de Cuero",
-    price: 299.00,
-    originalPrice: null,
-    brand: "Leather Co",
-    category: "Chaquetas",
-    color: "Negro",
-    size: "L",
-    collection: "Vintage",
-    gender: "Hombre",
-    tags: ["Jacket", "Leather", "Rock"],
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "brown"],
-    rating: 4.9
-  },
-  {
-    id: 9,
-    name: "Zapatos Oxford",
-    price: 189.00,
-    originalPrice: null,
-    brand: "Classic Shoes",
-    category: "Zapatos",
-    color: "Negro",
-    size: "M",
-    collection: "Nuevos",
-    gender: "Hombre",
-    tags: ["Shoes", "Oxford", "Formal"],
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "brown"],
-    rating: 4.6
-  },
-  {
-    id: 10,
-    name: "Polo Deportivo",
-    price: 67.00,
-    originalPrice: 85.00,
-    brand: "Sport Style",
-    category: "Polos",
-    color: "Azul",
-    size: "L",
-    collection: "Ofertas",
-    gender: "Hombre",
-    tags: ["Polo", "Sport", "Casual"],
-    image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=500&fit=crop&crop=center",
-    colors: ["blue", "red"],
-    rating: 4.3
-  },
-
-  // PRODUCTOS UNISEX
-  {
-    id: 11,
-    name: "Gafas de Sol Aviador",
-    price: 156.00,
-    originalPrice: 194.00,
-    brand: "Sun Protection",
-    category: "Accesorios",
-    color: "Negro",
-    size: "M",
-    collection: "Ofertas",
-    gender: "Unisex",
-    tags: ["Sunglasses", "Aviator", "Protection"],
-    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "blue"],
-    rating: 4.8
-  },
-  {
-    id: 12,
-    name: "Reloj Minimalista",
-    price: 234.00,
-    originalPrice: null,
-    brand: "Time Style",
-    category: "Accesorios",
-    color: "Negro",
-    size: "M",
-    collection: "Nuevos",
-    gender: "Unisex",
-    tags: ["Watch", "Minimal", "Elegant"],
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=500&fit=crop&crop=center",
-    colors: ["black", "white"],
-    rating: 4.9
-  }
-];
 
 const sizeOptions = ["S", "M", "L", "XL"];
 const colorOptions = [
@@ -256,12 +56,23 @@ export default function Shop() {
   // Estado para manejar cantidades de cada producto
   const [productQuantities, setProductQuantities] = useState({});
 
+  // Estado para productos traídos del backend
+  const [products, setProducts] = useState([]);
+
   const { cart, addToCart } = useContext(CartContext);
   const itemsPerPage = 6;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Traer productos del backend al montar el componente
+  useEffect(() => {
+    fetch("http://localhost:8084/api/products")
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(() => setProducts([]));
+  }, []);
 
   // Función para manejar cambio de cantidad por producto
   const handleQuantityChange = (productId, newQuantity) => {
@@ -325,7 +136,7 @@ export default function Shop() {
     );
   };
 
-  const filteredProducts = allProducts.filter(product => {
+  const filteredProducts = products.filter(product => {
     // Filtro por tallas
     if (selectedSizes.length > 0 && !selectedSizes.includes(product.size)) {
       return false;
@@ -665,8 +476,34 @@ export default function Shop() {
                   : 'grid-cols-1'
               }`}>
                 {paginatedProducts.map(product => {
+                  console.log(product); // <-- Agrega esto para ver los campos reales en consola
                   const currentQuantity = productQuantities[product.id] || 1;
-                  
+
+                  // Imagen: soporta string o { url }
+                  let imageUrl = 'https://via.placeholder.com/300x400?text=Sin+Imagen';
+                  if (product.image) {
+                    if (typeof product.image === 'string') {
+                      imageUrl = product.image.startsWith('http')
+                        ? product.image
+                        : `http://localhost:8000/media/${product.image.replace(/^\/?media\//, '')}`;
+                    } else if (typeof product.image === 'object' && product.image.url) {
+                      imageUrl = product.image.url.startsWith('http')
+                        ? product.image.url
+                        : `http://localhost:8000${product.image.url}`;
+                    }
+                  }
+
+                  // Usa el nombre correcto según lo que veas en el console.log
+                  const price = typeof product.price === "number"
+                    ? product.price
+                    : (product.price ? parseFloat(product.price) : 0);
+
+                  // Intenta con ambos nombres para originalPrice
+                  const originalPrice = typeof product.originalPrice === "number"
+                    ? product.originalPrice
+                    : (product.originalPrice ? parseFloat(product.originalPrice)
+                      : (product.original_price ? parseFloat(product.original_price) : 0));
+
                   return (
                     <div
                       key={product.id}
@@ -676,13 +513,13 @@ export default function Shop() {
                     >
                       <div className={`relative ${viewMode === 'list' ? 'w-48 flex-shrink-0' : ''}`}>
                         <img
-                          src={product.image}
+                          src={imageUrl}
                           alt={product.name}
                           className={`object-cover group-hover:scale-105 transition-transform duration-300 ${
                             viewMode === 'list' ? 'w-full h-full' : 'w-full h-64'
                           }`}
                         />
-                        {product.originalPrice && (
+                        {originalPrice > 0 && (
                           <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-medium">
                             Oferta
                           </div>
@@ -696,18 +533,18 @@ export default function Shop() {
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
                         <div className="flex items-center gap-2 mb-2">
                           <span className="text-xl font-bold text-gray-900">
-                            S/. {product.price.toFixed(2)}
+                            S/. {price > 0 ? price.toFixed(2) : "0.00"}
                           </span>
-                          {product.originalPrice && (
+                          {originalPrice > 0 && (
                             <span className="text-sm text-gray-500 line-through">
-                              S/. {product.originalPrice.toFixed(2)}
+                              S/. {originalPrice.toFixed(2)}
                             </span>
                           )}
                         </div>
                         
                         {/* Colores disponibles */}
                         <div className="flex gap-1 mb-4">
-                          {product.colors.map(colorValue => {
+                          {(Array.isArray(product.colors) ? product.colors : []).map(colorValue => {
                             const colorOption = colorOptions.find(c => c.value === colorValue);
                             return colorOption ? (
                               <div
@@ -746,7 +583,7 @@ export default function Shop() {
                         <div className="text-center mb-3">
                           <span className="text-sm text-gray-600">Subtotal: </span>
                           <span className="text-lg font-bold text-gray-900">
-                            S/. {(product.price * currentQuantity).toFixed(2)}
+                            S/. {typeof product.price === "number" ? (product.price * currentQuantity).toFixed(2) : "0.00"}
                           </span>
                         </div>
 
