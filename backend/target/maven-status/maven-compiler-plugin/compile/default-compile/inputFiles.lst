@@ -2,6 +2,13 @@ C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxury
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\config\SecurityConfig.java
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\controller\AuthController.java
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\controller\UserController.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Brand.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Category.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Collection.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Order.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\OrderItem.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Product.java
+C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\Tag.java
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\entity\User.java
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\LuxuryclothesProjectApplication.java
 C:\Projects\Luxuryclothes_project\backend\src\main\java\com\luxuryclothes\Luxuryclothes_project\repository\UserRepository.java

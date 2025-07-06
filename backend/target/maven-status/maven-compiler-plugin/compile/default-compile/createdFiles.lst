@@ -1,9 +1,9 @@
 com\luxuryclothes\Luxuryclothes_project\controller\UserController.class
 com\luxuryclothes\Luxuryclothes_project\config\CorsConfig.class
 com\luxuryclothes\Luxuryclothes_project\config\SecurityConfig.class
-com\luxuryclothes\Luxuryclothes_project\repository\UserRepository.class
 com\luxuryclothes\Luxuryclothes_project\controller\AuthController.class
-com\luxuryclothes\Luxuryclothes_project\entity\User.class
 com\luxuryclothes\Luxuryclothes_project\LuxuryclothesProjectApplication.class
 com\luxuryclothes\Luxuryclothes_project\service\AuthService.class
+com\luxuryclothes\Luxuryclothes_project\repository\UserRepository.class
+com\luxuryclothes\Luxuryclothes_project\entity\User.class
 com\luxuryclothes\Luxuryclothes_project\service\UserService.class
