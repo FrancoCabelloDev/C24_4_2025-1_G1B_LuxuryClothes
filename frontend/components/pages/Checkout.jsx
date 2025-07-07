@@ -4,6 +4,64 @@ import { FaArrowLeft, FaCreditCard, FaUser, FaMapMarkerAlt, FaLock, FaCheck, FaS
 import { CartContext } from "../../src/context/CartContext";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
+// Reemplaza por tu public key de Stripe
+const stripePromise = loadStripe("pk_test_51Ri82WQNoJkzaIdZnWSJaY0MMbHvuSgOdKzMM0WMZEUB3G3DR2gcUxGappXcKTKEPMOBsjpu1tcGueYHoboIJ7Fq00Pfzw8FhM");
+
+function StripeCheckoutForm({ amount, onSuccess }) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setProcessing(true);
+    setError(null);
+
+    // Llama a tu backend para crear el PaymentIntent
+    const res = await fetch("http://localhost:8084/api/payment/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount }),
+    });
+    const data = await res.json();
+    if (!data.clientSecret) {
+      setError("No se pudo iniciar el pago.");
+      setProcessing(false);
+      return;
+    }
+
+    const result = await stripe.confirmCardPayment(data.clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+
+    if (result.error) {
+      setError(result.error.message);
+    } else if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+      onSuccess();
+    }
+    setProcessing(false);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <CardElement options={{ hidePostalCode: true }} className="p-4 border rounded-lg" />
+      {error && <div className="text-red-600">{error}</div>}
+      <button
+        type="submit"
+        disabled={!stripe || processing}
+        className="w-full bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
+      >
+        {processing ? "Procesando..." : "Pagar con Tarjeta"}
+      </button>
+    </form>
+  );
+}
 
 export default function Checkout() {
   const { cart, clearCart } = useContext(CartContext);
@@ -28,14 +86,6 @@ export default function Checkout() {
     district: '',
     postalCode: '',
     country: 'Perú'
-  });
-
-  const [paymentInfo, setPaymentInfo] = useState({
-    method: 'credit',
-    cardNumber: '',
-    expiryDate: '',
-    cvv: '',
-    cardName: ''
   });
 
   // Calcular totales
@@ -70,8 +120,6 @@ export default function Checkout() {
       setCustomerInfo(prev => ({ ...prev, [field]: value }));
     } else if (section === 'shipping') {
       setShippingInfo(prev => ({ ...prev, [field]: value }));
-    } else if (section === 'payment') {
-      setPaymentInfo(prev => ({ ...prev, [field]: value }));
     }
   };
 
@@ -81,11 +129,6 @@ export default function Checkout() {
         return customerInfo.firstName && customerInfo.lastName && customerInfo.email && customerInfo.phone;
       case 2:
         return shippingInfo.address && shippingInfo.district && shippingInfo.postalCode;
-      case 3:
-        if (paymentInfo.method === 'credit') {
-          return paymentInfo.cardNumber && paymentInfo.expiryDate && paymentInfo.cvv && paymentInfo.cardName;
-        }
-        return true;
       default:
         return false;
     }
@@ -103,21 +146,6 @@ export default function Checkout() {
 
   const generateOrderId = () => {
     return 'LC' + Date.now().toString().slice(-8);
-  };
-
-  const processPayment = async () => {
-    setIsProcessing(true);
-    
-    // Simular procesamiento de pago
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    const newOrderId = generateOrderId();
-    setOrderId(newOrderId);
-    setOrderComplete(true);
-    setIsProcessing(false);
-    
-    // Limpiar carrito
-    clearCart();
   };
 
   if (orderComplete) {
@@ -144,10 +172,6 @@ export default function Checkout() {
                 <div className="flex justify-between">
                   <span>Total Pagado:</span>
                   <span className="font-bold text-green-600">S/. {total.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Método de Pago:</span>
-                  <span>{paymentInfo.method === 'credit' ? 'Tarjeta de Crédito' : 'Yape/Plin'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Email de Confirmación:</span>
@@ -384,94 +408,16 @@ export default function Checkout() {
 
               {/* Paso 3: Método de Pago */}
               {currentStep === 3 && (
-                <div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">Método de Pago</h2>
-                  
-                  {/* Selector de método */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                    <button
-                      onClick={() => handleInputChange('payment', 'method', 'credit')}
-                      className={`p-4 border-2 rounded-lg transition-all ${
-                        paymentInfo.method === 'credit' 
-                          ? 'border-black bg-gray-50' 
-                          : 'border-gray-300 hover:border-gray-400'
-                      }`}
-                    >
-                      <FaCreditCard className="text-2xl mx-auto mb-2" />
-                      <p className="font-medium">Tarjeta de Crédito/Débito</p>
-                    </button>
-                    <button
-                      onClick={() => handleInputChange('payment', 'method', 'digital')}
-                      className={`p-4 border-2 rounded-lg transition-all ${
-                        paymentInfo.method === 'digital' 
-                          ? 'border-black bg-gray-50' 
-                          : 'border-gray-300 hover:border-gray-400'
-                      }`}
-                    >
-                      <FaLock className="text-2xl mx-auto mb-2" />
-                      <p className="font-medium">Yape / Plin</p>
-                    </button>
-                  </div>
-
-                  {/* Formulario de tarjeta */}
-                  {paymentInfo.method === 'credit' && (
-                    <div className="space-y-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Número de Tarjeta *</label>
-                        <input
-                          type="text"
-                          value={paymentInfo.cardNumber}
-                          onChange={(e) => handleInputChange('payment', 'cardNumber', e.target.value)}
-                          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-black"
-                          placeholder="1234 5678 9012 3456"
-                        />
-                      </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">Fecha de Vencimiento *</label>
-                          <input
-                            type="text"
-                            value={paymentInfo.expiryDate}
-                            onChange={(e) => handleInputChange('payment', 'expiryDate', e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-black"
-                            placeholder="MM/AA"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">CVV *</label>
-                          <input
-                            type="text"
-                            value={paymentInfo.cvv}
-                            onChange={(e) => handleInputChange('payment', 'cvv', e.target.value)}
-                            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-black"
-                            placeholder="123"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Nombre en la Tarjeta *</label>
-                        <input
-                          type="text"
-                          value={paymentInfo.cardName}
-                          onChange={(e) => handleInputChange('payment', 'cardName', e.target.value)}
-                          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-black focus:border-black"
-                          placeholder="Como aparece en la tarjeta"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Instrucciones para pago digital */}
-                  {paymentInfo.method === 'digital' && (
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                      <h4 className="font-medium text-blue-900 mb-2">Instrucciones de Pago</h4>
-                      <p className="text-sm text-blue-800">
-                        Después de confirmar tu pedido, recibirás un código QR para realizar el pago 
-                        mediante Yape o Plin. El pedido se procesará una vez confirmado el pago.
-                      </p>
-                    </div>
-                  )}
-                </div>
+                <Elements stripe={stripePromise}>
+                  <StripeCheckoutForm
+                    amount={total}
+                    onSuccess={() => {
+                      clearCart();
+                      setOrderComplete(true);
+                      setOrderId(generateOrderId());
+                    }}
+                  />
+                </Elements>
               )}
 
               {/* Botones de navegación */}
@@ -498,19 +444,7 @@ export default function Checkout() {
                   >
                     Continuar
                   </button>
-                ) : (
-                  <button
-                    onClick={processPayment}
-                    disabled={!validateStep(currentStep)}
-                    className={`ml-auto px-6 py-3 rounded-lg font-medium transition-colors ${
-                      validateStep(currentStep)
-                        ? 'bg-black text-white hover:bg-gray-800'
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                    }`}
-                  >
-                    Procesar Pago
-                  </button>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

@@ -10,8 +10,8 @@ class User(models.Model):
     dni = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
-        db_table = 'user'  # 👈 Apunta a la tabla existente en MySQL
-        managed = False    # 👈 Evita que Django intente crearla o migrarla
+        db_table = 'user'
+        managed = False
 
     def __str__(self):
         return self.nombre or self.email
@@ -65,7 +65,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, models.DO_NOTHING, db_column='category_id')
     price = models.FloatField(blank=True, null=True)
-    originalPrice = models.FloatField(blank=True, null=True)
+    # Campo originalPrice eliminado
     brand = models.ForeignKey(Brand, models.DO_NOTHING, db_column='brand_id')
     color = models.CharField(max_length=100, blank=True, null=True)
     size = models.CharField(max_length=20, blank=True, null=True)

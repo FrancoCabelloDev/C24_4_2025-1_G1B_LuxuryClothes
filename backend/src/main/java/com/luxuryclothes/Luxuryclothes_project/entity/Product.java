@@ -1,10 +1,12 @@
 package com.luxuryclothes.Luxuryclothes_project.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "product")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,22 +16,22 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties({"products"})
     private Category category;
 
     private Double price;
 
-    private Double originalPrice;
+    // Campo originalPrice eliminado
 
-    // Cambia de String a Brand (relación ManyToOne)
     @ManyToOne
     @JoinColumn(name = "brand_id")
+    @JsonIgnoreProperties({"products"})
     private Brand brand;
 
     private String color;
 
     private String size;
 
-    // Cambia de String a Collection (relación ManyToOne)
     @ManyToOne
     @JoinColumn(name = "collection_id", nullable = true)
     private Collection collection;
@@ -40,7 +42,6 @@ public class Product {
 
     private Double rating;
 
-    // Si quieres relación con Tag, usa ManyToMany
     @ManyToMany
     @JoinTable(
         name = "product_tag",
@@ -52,12 +53,11 @@ public class Product {
     // Constructor vacío
     public Product() {}
 
-    // Constructor con todos los campos
-    public Product(Long id, String name, Double price, Double originalPrice, Brand brand, Category category, String color, String size, Collection collection, String gender, String image, Double rating, Set<Tag> tags) {
+    // Constructor actualizado sin originalPrice
+    public Product(Long id, String name, Double price, Brand brand, Category category, String color, String size, Collection collection, String gender, String image, Double rating, Set<Tag> tags) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.originalPrice = originalPrice;
         this.brand = brand;
         this.category = category;
         this.color = color;
@@ -79,8 +79,7 @@ public class Product {
     public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
 
-    public Double getOriginalPrice() { return originalPrice; }
-    public void setOriginalPrice(Double originalPrice) { this.originalPrice = originalPrice; }
+    // Métodos getOriginalPrice y setOriginalPrice eliminados
 
     public Brand getBrand() { return brand; }
     public void setBrand(Brand brand) { this.brand = brand; }

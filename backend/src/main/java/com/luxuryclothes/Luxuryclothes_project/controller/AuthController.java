@@ -2,6 +2,7 @@ package com.luxuryclothes.Luxuryclothes_project.controller;
 
 import com.luxuryclothes.Luxuryclothes_project.entity.User;
 import com.luxuryclothes.Luxuryclothes_project.service.AuthService;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -21,6 +22,7 @@ public class AuthController {
         if (token == null || token.isEmpty()) {
             throw new IllegalArgumentException("Token de Google no recibido");
         }
+        // Llama al método de instancia, no al estático
         return authService.verifyAndLogin(token);
     }
 }
