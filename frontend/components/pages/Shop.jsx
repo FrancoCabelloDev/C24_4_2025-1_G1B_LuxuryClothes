@@ -209,7 +209,7 @@ export default function Shop() {
           <div className="max-w-7xl mx-auto px-4 text-center">
             <h1 className="text-5xl font-bold mb-4">Nuestra Colección</h1>
             <p className="text-xl text-gray-300">
-              Descubre productos de lujo creados desde nuestro panel de administración
+              Descubre productos de lujo 
             </p>
           </div>
         </section>

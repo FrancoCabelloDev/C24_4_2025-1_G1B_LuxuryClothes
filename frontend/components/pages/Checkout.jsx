@@ -10,7 +10,7 @@ import { Elements, CardElement, useStripe, useElements } from "@stripe/react-str
 // Reemplaza por tu public key de Stripe
 const stripePromise = loadStripe("pk_test_51Ri82WQNoJkzaIdZnWSJaY0MMbHvuSgOdKzMM0WMZEUB3G3DR2gcUxGappXcKTKEPMOBsjpu1tcGueYHoboIJ7Fq00Pfzw8FhM");
 
-function StripeCheckoutForm({ amount, onSuccess }) {
+function StripeCheckoutForm({ amount, cart, customerInfo, shippingInfo, onSuccess }) {
   const stripe = useStripe();
   const elements = useElements();
   const [processing, setProcessing] = useState(false);
@@ -21,11 +21,26 @@ function StripeCheckoutForm({ amount, onSuccess }) {
     setProcessing(true);
     setError(null);
 
-    // Llama a tu backend para crear el PaymentIntent
+    const items = cart.map(item => ({
+      productId: item.id,
+      quantity: item.quantity || 1,
+      price: item.price
+    }));
+
+    // Enviar también los datos de shippingInfo
     const res = await fetch("http://localhost:8084/api/payment/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount }),
+      body: JSON.stringify({
+        amount,
+        email: customerInfo.email,
+        items,
+        shippingAddress: shippingInfo.address,
+        shippingCity: shippingInfo.city,
+        shippingDistrict: shippingInfo.district,
+        shippingPostalCode: shippingInfo.postalCode,
+        shippingCountry: shippingInfo.country
+      }),
     });
     const data = await res.json();
     if (!data.clientSecret) {
@@ -411,6 +426,9 @@ export default function Checkout() {
                 <Elements stripe={stripePromise}>
                   <StripeCheckoutForm
                     amount={total}
+                    cart={cart}
+                    customerInfo={customerInfo}
+                    shippingInfo={shippingInfo}
                     onSuccess={() => {
                       clearCart();
                       setOrderComplete(true);

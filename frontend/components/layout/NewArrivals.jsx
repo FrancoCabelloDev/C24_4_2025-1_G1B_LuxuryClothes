@@ -168,7 +168,6 @@ export default function NewArrivals() {
                         e.target.src = '/placeholder-image.jpg';
                       }}
                     />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300"></div>
                     
                     {/* Botón flotante de agregar al carrito */}
                     <button

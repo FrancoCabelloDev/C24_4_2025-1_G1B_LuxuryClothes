@@ -24,17 +24,29 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> items;
 
+    private String shippingAddress;
+    private String shippingCity;
+    private String shippingDistrict;
+    private String shippingPostalCode;
+    private String shippingCountry;
+
     // Constructor vacío
     public Order() {}
 
     // Constructor con todos los campos
-    public Order(Long id, User user, LocalDateTime orderDate, Double total, String status, Set<OrderItem> items) {
+    public Order(Long id, User user, LocalDateTime orderDate, Double total, String status, Set<OrderItem> items,
+                 String shippingAddress, String shippingCity, String shippingDistrict, String shippingPostalCode, String shippingCountry) {
         this.id = id;
         this.user = user;
         this.orderDate = orderDate;
         this.total = total;
         this.status = status;
         this.items = items;
+        this.shippingAddress = shippingAddress;
+        this.shippingCity = shippingCity;
+        this.shippingDistrict = shippingDistrict;
+        this.shippingPostalCode = shippingPostalCode;
+        this.shippingCountry = shippingCountry;
     }
 
     // Getters y setters
@@ -55,4 +67,19 @@ public class Order {
 
     public Set<OrderItem> getItems() { return items; }
     public void setItems(Set<OrderItem> items) { this.items = items; }
+
+    public String getShippingAddress() { return shippingAddress; }
+    public void setShippingAddress(String shippingAddress) { this.shippingAddress = shippingAddress; }
+
+    public String getShippingCity() { return shippingCity; }
+    public void setShippingCity(String shippingCity) { this.shippingCity = shippingCity; }
+
+    public String getShippingDistrict() { return shippingDistrict; }
+    public void setShippingDistrict(String shippingDistrict) { this.shippingDistrict = shippingDistrict; }
+
+    public String getShippingPostalCode() { return shippingPostalCode; }
+    public void setShippingPostalCode(String shippingPostalCode) { this.shippingPostalCode = shippingPostalCode; }
+
+    public String getShippingCountry() { return shippingCountry; }
+    public void setShippingCountry(String shippingCountry) { this.shippingCountry = shippingCountry; }
 }

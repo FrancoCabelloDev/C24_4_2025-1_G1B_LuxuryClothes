@@ -81,3 +81,36 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey('User', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    order_date = models.DateTimeField(blank=True, null=True)
+    total = models.FloatField(blank=True, null=True)
+    status = models.CharField(max_length=50, blank=True, null=True)
+    shipping_address = models.CharField(max_length=255, blank=True, null=True)
+    shipping_city = models.CharField(max_length=100, blank=True, null=True)
+    shipping_district = models.CharField(max_length=100, blank=True, null=True)
+    shipping_postal_code = models.CharField(max_length=20, blank=True, null=True)
+    shipping_country = models.CharField(max_length=100, blank=True, null=True)
+
+    class Meta:
+        db_table = 'orders'
+        managed = False
+
+    def __str__(self):
+        return f"Order #{self.id} - {self.user.email if self.user else 'Sin usuario'}"
+
+class OrderItem(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    order = models.ForeignKey(Order, models.DO_NOTHING, db_column='order_id')
+    product = models.ForeignKey('Product', models.DO_NOTHING, db_column='product_id')
+    quantity = models.IntegerField(blank=True, null=True)
+    price = models.FloatField(blank=True, null=True)
+
+    class Meta:
+        db_table = 'order_item'
+        managed = False
+
+    def __str__(self):
+        return f"{self.product.name} x {self.quantity}"

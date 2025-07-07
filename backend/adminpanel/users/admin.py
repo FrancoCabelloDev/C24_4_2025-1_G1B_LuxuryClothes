@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Product, Brand, Category, Collection, Tag
+from .models import User, Product, Brand, Category, Collection, Tag, Order, OrderItem
 from django.utils.html import format_html
 
 @admin.register(User)
@@ -38,3 +38,15 @@ class CollectionAdmin(admin.ModelAdmin):
 class TagAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     search_fields = ('name',)
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'order_date', 'total', 'status', 'shipping_address', 'shipping_city', 'shipping_district', 'shipping_postal_code', 'shipping_country')
+    search_fields = ('user__email', 'shipping_address', 'shipping_city', 'shipping_district', 'shipping_postal_code', 'shipping_country')
+    list_filter = ('status', 'shipping_city', 'shipping_district', 'shipping_country')
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'order', 'product', 'quantity', 'price')
+    search_fields = ('order__id', 'product__name')
+    list_filter = ('product',)
