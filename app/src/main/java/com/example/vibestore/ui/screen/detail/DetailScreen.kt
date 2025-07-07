@@ -124,7 +124,7 @@ fun DetailScreen(
                                         viewModel.deleteFavouriteById(it)
                                         scope.launch {
                                             snackbarHostState.showSnackbar(
-                                                message = "Product removed from favourites",
+                                                message = "Producto removido de favoritos",
                                             )
                                         }
                                     }
@@ -134,7 +134,7 @@ fun DetailScreen(
                                     )
                                     scope.launch {
                                         snackbarHostState.showSnackbar(
-                                            message = "Product added to favourites",
+                                            message = "Producto añadido a favoritos",
                                         )
                                     }
                                 }

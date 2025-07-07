@@ -115,7 +115,7 @@ fun YourOrderScreen(
                         modifier = Modifier.size(200.dp)
                     )
                     Text(
-                        text = "No Order History",
+                        text = "Sin historial de pedidos",
                         fontFamily = poppinsFontFamily,
                         color = MaterialTheme.colorScheme.outline
                     )

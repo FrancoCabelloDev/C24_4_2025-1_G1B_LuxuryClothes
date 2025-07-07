@@ -168,7 +168,7 @@ fun SignUpScreen(
                 email.isEmpty() ||
                 password.isEmpty()
                 ) {
-                Toast.makeText(context, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Llenar todos los campos por favor", Toast.LENGTH_SHORT).show()
             } else {
                 scope.launch {
                     viewModel.register(

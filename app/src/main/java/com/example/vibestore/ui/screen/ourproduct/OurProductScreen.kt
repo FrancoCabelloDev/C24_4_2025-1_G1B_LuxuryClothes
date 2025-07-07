@@ -157,7 +157,7 @@ fun OurProductScreen(
                         )
                         Text(
                             modifier = Modifier.offset(y = (-70).dp),
-                            text = "Product Not Found",
+                            text = "Producto no encontrado",
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.outline

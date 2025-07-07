@@ -96,12 +96,7 @@ fun HomeScreen(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(start = 16.dp)
                     ) {
-                        Image(
-                            painter = painterResource(R.drawable.logo),
-                            contentDescription = null,
-                            modifier = Modifier
-                                .size(30.dp)
-                        )
+
                         Text(
                             text = "Luxury",
                             fontFamily = poppinsFontFamily,
@@ -112,7 +107,7 @@ fun HomeScreen(
                                     start = 8.dp,
                                     top = 8.dp
                                 ),
-                            color = MaterialTheme.colorScheme.primary
+                            color = Color(0xFF000000)
                         )
                         Text(
                             text = "Clothes",
@@ -123,7 +118,7 @@ fun HomeScreen(
                                     start = 4.dp,
                                     top = 8.dp
                                 ),
-                            color = MaterialTheme.colorScheme.primary
+                            color = Color(0xFF000000)
                         )
                     }
                 },

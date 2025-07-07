@@ -339,7 +339,7 @@ fun CheckoutContent(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Choose Shipping",
+                            text = "Elige envío",
                             fontSize = 14.sp,
                             fontFamily = poppinsFontFamily,
                             fontWeight = FontWeight.Medium,
@@ -349,7 +349,7 @@ fun CheckoutContent(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "Edit",
+                                text = "Editar",
                                 fontSize = 14.sp,
                                 fontFamily = poppinsFontFamily,
                             )
@@ -420,7 +420,7 @@ fun CheckoutContent(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Payment Summary",
+                    text = "Resumen de pago",
                     fontWeight = FontWeight.SemiBold
                 )
                 Row(
@@ -435,7 +435,7 @@ fun CheckoutContent(
                     )
                     Text(
                         fontFamily = poppinsFontFamily,
-                        text = "$${"%.2f".format(state?.totalPrice)}",
+                        text = "S/.${"%.2f".format(state?.totalPrice)}",
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -447,13 +447,13 @@ fun CheckoutContent(
                     Text(
                         modifier = Modifier.weight(1f),
                         fontFamily = poppinsFontFamily,
-                        text = "Shipping Charge",
+                        text = "Cargo de envío",
                         color = MaterialTheme.colorScheme.outline
                     )
                     selectedShippingId?.let {
                         Text(
                             fontFamily = poppinsFontFamily,
-                            text = "$${shippingItem[selectedShippingId].price}",
+                            text = "S/.${shippingItem[selectedShippingId].price}",
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -473,7 +473,7 @@ fun CheckoutContent(
                     Text(
                         modifier = Modifier.weight(1f),
                         fontFamily = poppinsFontFamily,
-                        text = "Final Price",
+                        text = "Precio Total",
                         color = MaterialTheme.colorScheme.outline
                     )
                     Row(
@@ -482,7 +482,7 @@ fun CheckoutContent(
                         if (selectedCouponId != null) {
                             Text(
                                 text = if (selectedShippingId == null) "$${"%.2f".format(state?.totalPrice)}"
-                                else "$${"%.2f".format(
+                                else "S/.${"%.2f".format(
                                     (state?.totalPrice)?.plus(shippingItem[selectedShippingId].price)
                                 )}",
                                 fontFamily = poppinsFontFamily,
@@ -493,7 +493,7 @@ fun CheckoutContent(
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             fontFamily = poppinsFontFamily,
-                            text = "$${"%.2f".format(finalPrice)}",
+                            text = "S/.${"%.2f".format(finalPrice)}",
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.primary
                         )
@@ -516,7 +516,7 @@ fun CheckoutContent(
                 ) {
                     Text(
                         fontFamily = poppinsFontFamily,
-                        text = "Choose Payment",
+                        text = "Elija Pago",
                         fontSize = 16.sp,
                         color = Color.White
                     )
@@ -687,7 +687,7 @@ fun BottomSheetCouponContent(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Confirmation",
+                    text = "Confirmación",
                     fontSize = 14.sp,
                     color = Color.White
                 )
@@ -746,7 +746,7 @@ fun BottomSheetShippingContent(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Confirmation",
+                    text = "Confirmación",
                     fontSize = 14.sp,
                     color = Color.White
                 )

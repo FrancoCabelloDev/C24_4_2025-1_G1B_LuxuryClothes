@@ -145,7 +145,7 @@ fun ProfileScreen(
 
                             )
                         Text(
-                            text = "$ 2.341.000",
+                            text = "S/. 2500",
                             fontFamily = poppinsFontFamily,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Medium,

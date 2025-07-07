@@ -121,10 +121,10 @@ private fun AddressItemPreview() {
         dynamicColor = false
     ) {
         AddressItemScreen(
-            name = "Dwi Azi Prasetya",
-            address = "Jl. Durian No. 123, Banyubiru " +
-                    "Kab. Semarang, Jawa Tengah " +
-                    "Indonesia, 50123",
+            name = "Francys",
+            address = "Av. Las perdices 143 " +
+                    "Santa Anita " +
+                    "Lima",
         )
     }
 }
@@ -205,10 +205,10 @@ private fun AddressItemPreview2() {
         dynamicColor = false
     ) {
         AddressItemScreen2(
-            name = "Dwi Azi Prasetya",
-            address = "Jl. Durian No. 123, Banyubiru " +
-                    "Kab. Semarang, Jawa Tengah " +
-                    "Indonesia, 50123",
+            name = "Franco",
+            address = "Calle Emilio Althaus 1542 " +
+                    "Lince " +
+                    "Lima",
             isSelected = true,
             onDeleteClick = {},
             onChooseClick = {}

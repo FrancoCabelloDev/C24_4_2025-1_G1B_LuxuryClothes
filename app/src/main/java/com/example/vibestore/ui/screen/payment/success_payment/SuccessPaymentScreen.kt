@@ -73,7 +73,7 @@ fun SuccessPaymentScreen(
                 modifier = Modifier
                     .offset(y = (-30).dp),
                 fontSize = 24.sp,
-                text = "Payment Success",
+                text = "Pago exitoso",
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium,
             )
@@ -85,7 +85,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "$${"%.2f".format(latestCheckout?.totalPrice)}",
+                    text = "S/.${"%.2f".format(latestCheckout?.totalPrice)}",
                     fontSize = 30.sp,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.weight(1f)
@@ -93,7 +93,7 @@ fun SuccessPaymentScreen(
                 if (latestCheckout?.coupon != "") {
                     if (latestCheckout?.coupon == "FREE SHIPPING") {
                         Text(
-                            text = "FREE SHIPPING coupon",
+                            text = "Cupón de ENVÍO GRATIS",
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.primary,
                             fontFamily = poppinsFontFamily,
@@ -107,7 +107,7 @@ fun SuccessPaymentScreen(
                         )
                     } else {
                         Text(
-                            text = "Save ${latestCheckout?.coupon}",
+                            text = "Guardar ${latestCheckout?.coupon}",
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.primary,
                             fontFamily = poppinsFontFamily,
@@ -137,12 +137,12 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "No. Reference",
+                    text = "No. Referencia",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = "12345678910",
+                    text = "4587110258",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = poppinsFontFamily,
@@ -156,7 +156,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Time",
+                    text = "Hora",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -177,7 +177,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Shipping",
+                    text = "Envío",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -198,7 +198,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Total Order",
+                    text = "Orden Total",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -217,7 +217,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Receiver",
+                    text = "Receptor",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -238,7 +238,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Payment Method",
+                    text = "Método de pago",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -259,7 +259,7 @@ fun SuccessPaymentScreen(
             ) {
                 Text(
                     fontFamily = poppinsFontFamily,
-                    text = "Date",
+                    text = "Fecha",
                     color = MaterialTheme.colorScheme.outline,
                     modifier = Modifier.weight(1f)
                 )
@@ -290,12 +290,12 @@ fun SuccessPaymentScreen(
                 navController.navigate(Screen.MainNav.route)
             },
             colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary
+                containerColor = Color(0xFFB0B0B0)
             )
         ) {
             Text(
                 fontFamily = poppinsFontFamily,
-                text = "Back to Home",
+                text = "Volver al Inicio",
                 fontSize = 16.sp,
                 color = Color.White
             )

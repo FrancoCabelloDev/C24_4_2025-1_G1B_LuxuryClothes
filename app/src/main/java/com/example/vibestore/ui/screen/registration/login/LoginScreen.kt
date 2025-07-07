@@ -158,7 +158,7 @@ fun LoginScreen(
             ) {
                 Toast.makeText(
                     context,
-                    "Please fill all fields",
+                    "Llenar todos los campos por favor",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {

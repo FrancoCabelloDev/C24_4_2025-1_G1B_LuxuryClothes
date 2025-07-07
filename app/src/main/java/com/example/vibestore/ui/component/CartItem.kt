@@ -119,7 +119,7 @@ fun CartItem(
             )
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
-                text = "$${"%.2f".format(totalPrice)}",
+                text = "S/.${"%.2f".format(totalPrice)}",
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium
             )
@@ -194,7 +194,7 @@ fun CartItemDummy(
                 maxLines = 2
             )
             Text(
-                text = "Category : $category",
+                text = "Categoría : $category",
                 fontFamily = poppinsFontFamily,
                 fontSize = 12.sp,
                 maxLines = 1,
@@ -202,7 +202,7 @@ fun CartItemDummy(
             )
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Text(
-                text = "$${"%.2f".format(totalPrice)}",
+                text = "S/.${"%.2f".format(totalPrice)}",
                 fontFamily = poppinsFontFamily,
                 fontWeight = FontWeight.Medium
             )
@@ -326,14 +326,14 @@ fun CartItemMini(
             Spacer(modifier = Modifier.padding(top = 8.dp))
             Row {
                 Text(
-                    text = "$orderCount x $${"%.2f".format(totalPrice)}",
+                    text = "$orderCount x S/.${"%.2f".format(totalPrice)}",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.weight(1f)
                 )
                 if (totalOrder > 1) {
                     Text(
-                        text = "and ${totalOrder - 1} more",
+                        text = "y ${totalOrder - 1} más",
                         fontFamily = poppinsFontFamily,
                         fontWeight = FontWeight.Normal,
                         fontSize = 12.sp,

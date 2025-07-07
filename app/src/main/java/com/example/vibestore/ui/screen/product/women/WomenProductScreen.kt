@@ -45,7 +45,7 @@ fun WomenProductScreen(
     viewmodel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                viewmodel.getProductByCategory("ropa de mujer", limit)
+                viewmodel.getProductByCategory("women's clothing", limit)
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colorScheme.background)

@@ -42,11 +42,11 @@ fun ExpandingText(
 
         when {
             isExpanded -> {
-                finalText = "$text Show less"
+                finalText = "$text Mostrar menos"
             }
             !isExpanded && textLayoutResult.hasVisualOverflow -> {
                 val lastCharIndex = textLayoutResult.getLineEnd(MINIMIZED_MAX_LINES - 1)
-                val showMoreString = "...Show More"
+                val showMoreString = "...Mostrar más"
                 val adjustedText = text
                     .substring(startIndex = 0, endIndex = lastCharIndex)
                     .dropLast(showMoreString.length)
@@ -60,11 +60,11 @@ fun ExpandingText(
     }
 
     val annotatedString = buildAnnotatedString {
-        val showMoreIndex = finalText.indexOf("...Show More")
-        val showLessIndex = finalText.indexOf("Show less")
+        val showMoreIndex = finalText.indexOf("...Mostrar más")
+        val showLessIndex = finalText.indexOf("Mostrar menos")
 
         if (showMoreIndex != -1) {
-            val endIndex = showMoreIndex + "...Show More".length
+            val endIndex = showMoreIndex + "...Mostrar más".length
             append(finalText.substring(0, showMoreIndex))
             withStyle(style = SpanStyle(
                 color = MaterialTheme.colorScheme.primary,
@@ -74,7 +74,7 @@ fun ExpandingText(
             }
             append(finalText.substring(endIndex))
         } else if (showLessIndex != -1) {
-            val endIndex = showLessIndex + "Show less".length
+            val endIndex = showLessIndex + "Mostrar menos".length
             append(finalText.substring(0, showLessIndex))
             withStyle(style = SpanStyle(
                 color = MaterialTheme.colorScheme.primary,
@@ -108,7 +108,7 @@ private fun ExpandingTextPreview() {
     VibeStoreTheme {
         ExpandingText(
             text = """
-                Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.
+                Estilo ajustado, manga larga raglán en contraste, tapeta henley de tres botones, tejido ligero y suave para mayor transpirabilidad y comodidad. Camisas con costuras sólidas y cuello redondo, ideales para ropa casual y para los fanáticos del béisbol. El cuello redondo estilo henley incluye una tapeta de tres botones.
             """.trimIndent(),
             fontSize = 14.sp
         )

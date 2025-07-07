@@ -45,7 +45,7 @@ fun MenProductScreen(
     viewModel.uiState.observeAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                viewModel.getProductByCategory("ropa de hombre", limit)
+                viewModel.getProductByCategory("men's clothing", limit)
                 Box(modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
                     .fillMaxWidth()

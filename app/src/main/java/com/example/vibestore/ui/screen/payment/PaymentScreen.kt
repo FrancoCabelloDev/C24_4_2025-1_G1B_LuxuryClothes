@@ -85,7 +85,7 @@ fun PaymentScreen(
                     .statusBarsPadding(),
                 title = {
                     Text(
-                        text = "Payment",
+                        text = "Pago",
                         fontFamily = poppinsFontFamily,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.SemiBold

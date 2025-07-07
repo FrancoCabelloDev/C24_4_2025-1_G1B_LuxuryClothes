@@ -11,17 +11,17 @@ object DataDummy {
     val dummyUserLocation = listOf(
         UserLocation(
             id = 1,
-            name = "Mas Azi",
-            address = "Jl. Durian No. 123, Banyubiru " +
-                    "Kab. Semarang, Jawa Tengah " +
-                    "Indonesia 50664"
+            name = "Francys",
+            address = "Av. Las perdices 143 " +
+                    "Santa Anita " +
+                    "Lima"
         ),
         UserLocation(
             id = 2,
-            name = "Haryanto",
-            address = "Jl. Durian No. 123, Banyubiru " +
-                    "Kab. Semarang, Jawa Tengah " +
-                    "Indonesia 50664"
+            name = "Franco",
+            address = "Calle Emilio Althaus 1542 " +
+                    "Lince" +
+                    "Lima"
         ),
     )
     val dummyShipping = listOf(

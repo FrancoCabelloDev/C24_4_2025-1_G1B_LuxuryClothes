@@ -128,7 +128,7 @@ fun OrderItem(
                     )
                     if (otherOrderQuantity > 1) {
                         Text(
-                            text = "and $otherOrderQuantity more",
+                            text = "y $otherOrderQuantity más",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Light,
                             fontFamily = poppinsFontFamily,

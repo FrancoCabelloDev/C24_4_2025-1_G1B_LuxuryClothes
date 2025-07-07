@@ -309,7 +309,7 @@ fun BottomSheetWelcomeContent(
                 shape = RoundedCornerShape(10.dp),
                 onClick = onSignUpClick,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.primary
+                    containerColor = Color(0xFFB0B0B0)
                 )
             ) {
                 Text(

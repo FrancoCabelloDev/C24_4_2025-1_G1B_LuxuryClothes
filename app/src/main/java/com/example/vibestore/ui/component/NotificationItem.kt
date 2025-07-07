@@ -48,7 +48,7 @@ fun NotificationItem(
         modifier = Modifier
             .background(
                 color = if (isRead) MaterialTheme.colorScheme.background
-                else Color("#b9ffaf".toColorInt()),
+                else Color("#f5f5f5".toColorInt()),
             )
             .padding(
                 vertical = 16.dp,
@@ -124,7 +124,7 @@ fun NotificationItem(
                         )
                         if (quantityCheckout > 1) {
                             Text(
-                                text = "and $quantityCheckout others",
+                                text = "y $quantityCheckout otros",
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.SemiBold,
                                 color = MaterialTheme.colorScheme.primary,

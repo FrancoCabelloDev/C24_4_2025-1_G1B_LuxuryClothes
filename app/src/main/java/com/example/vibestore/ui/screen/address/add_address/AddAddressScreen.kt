@@ -291,7 +291,7 @@ fun BottomSheetContent(
         when (uiState) {
             is UiState.Loading -> {
                 Text(
-                    text = "Recipient Name",
+                    text = "Nombre del destinatario",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(bottom = 8.dp)
@@ -325,7 +325,7 @@ fun BottomSheetContent(
                         ) {
                             if (recipientName.isEmpty()) {
                                 Text(
-                                    text = "Enter recipient's name",
+                                    text = "Introduzca el nombre del destinatario",
                                     style = TextStyle(
                                         fontFamily = poppinsFontFamily,
                                         fontWeight = FontWeight.Normal,
@@ -338,7 +338,7 @@ fun BottomSheetContent(
                     }
                 )
                 Text(
-                    text = "Detail Address",
+                    text = "Dirección detallada",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.SemiBold,
                     modifier = Modifier.padding(bottom = 8.dp)
@@ -377,7 +377,7 @@ fun BottomSheetContent(
                 }
             } is UiState.Success -> {
                 Text(
-                    text = "Recipient Name",
+                    text = "Nombre del destinatario",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(bottom = 8.dp)
@@ -411,7 +411,7 @@ fun BottomSheetContent(
                         ) {
                             if (recipientName.isEmpty()) {
                                 Text(
-                                    text = "Enter recipient's name",
+                                    text = "Introduzca el nombre del destinatario",
                                     style = TextStyle(
                                         fontFamily = poppinsFontFamily,
                                         fontWeight = FontWeight.Normal,
@@ -424,7 +424,7 @@ fun BottomSheetContent(
                     }
                 )
                 Text(
-                    text = "Detail Address",
+                    text = "Dirección detallada",
                     fontFamily = poppinsFontFamily,
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(bottom = 8.dp)
