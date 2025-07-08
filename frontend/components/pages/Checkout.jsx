@@ -21,6 +21,7 @@ function StripeCheckoutForm({ amount, cart, customerInfo, shippingInfo, onSucces
     setProcessing(true);
     setError(null);
 
+    // Asegúrate de enviar la cantidad real de cada producto
     const items = cart.map(item => ({
       productId: item.id,
       quantity: item.quantity || 1,
@@ -86,6 +87,7 @@ export default function Checkout() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderId, setOrderId] = useState('');
+  const [paidTotal, setPaidTotal] = useState(null); // <--- Nuevo estado
 
   // Estados del formulario
   const [customerInfo, setCustomerInfo] = useState({
@@ -103,7 +105,7 @@ export default function Checkout() {
     country: 'Perú'
   });
 
-  // Calcular totales
+  // Calcular totales (asegúrate de usar item.quantity)
   const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
   const shipping = subtotal > 200 ? 0 : 15;
   const tax = subtotal * 0.18; // IGV 18%
@@ -186,7 +188,7 @@ export default function Checkout() {
                 </div>
                 <div className="flex justify-between">
                   <span>Total Pagado:</span>
-                  <span className="font-bold text-green-600">S/. {total.toFixed(2)}</span>
+                  <span className="font-bold text-green-600">S/. {(paidTotal !== null ? paidTotal : total).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Email de Confirmación:</span>
@@ -430,6 +432,7 @@ export default function Checkout() {
                     customerInfo={customerInfo}
                     shippingInfo={shippingInfo}
                     onSuccess={() => {
+                      setPaidTotal(total); // Guarda el total antes de limpiar el carrito
                       clearCart();
                       setOrderComplete(true);
                       setOrderId(generateOrderId());

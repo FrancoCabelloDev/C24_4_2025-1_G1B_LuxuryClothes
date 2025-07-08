@@ -23,6 +23,17 @@ export default function Shop() {
   const [itemsPerPage, setItemsPerPage] = useState(12);
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Estado para cantidades por producto
+  const [quantities, setQuantities] = useState({});
+
+  // Cambiar cantidad
+  const handleQuantityChange = (productId, delta) => {
+    setQuantities(prev => ({
+      ...prev,
+      [productId]: Math.max(1, (prev[productId] || 1) + delta)
+    }));
+  };
+
   // Obtener productos desde la API
   useEffect(() => {
     fetchProducts();
@@ -98,14 +109,17 @@ export default function Shop() {
   const paginatedProducts = sortedProducts.slice(startIndex, startIndex + itemsPerPage);
 
   // Manejar agregar al carrito
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, quantity) => {
     const cartItem = {
       id: product.id,
       name: product.name,
       price: product.price || 0,
       image: product.image || '/placeholder-image.jpg',
       brand: product.brand?.name || 'Sin marca',
-      quantity: 1
+      quantity: quantity || 1,
+      size: product.size,
+      color: product.color,
+      gender: product.gender
     };
     addToCart(cartItem);
   };
@@ -179,7 +193,7 @@ export default function Shop() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      
+
       {/* Botones flotantes: carrito y back to top */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-4 z-50">
         {/* Carrito flotante */}
@@ -204,219 +218,280 @@ export default function Shop() {
       </div>
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-gray-900 to-gray-700 text-white py-20">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <h1 className="text-5xl font-bold mb-4">Nuestra Colección</h1>
-            <p className="text-xl text-gray-300">
-              Descubre productos de lujo 
-            </p>
-          </div>
-        </section>
+        {/* Breadcrumb */}
+        <div className="max-w-7xl mx-auto px-4 pt-6 pb-2">
+          <nav className="flex items-center gap-2 text-sm text-gray-500">
+            <Link to="/" className="hover:text-black">Inicio</Link>
+            <span className="text-gray-400">/</span>
+            <span className="text-black font-semibold">Productos</span>
+          </nav>
+        </div>
 
-        {/* Controles y Filtros */}
-        <section className="bg-white border-b">
-          <div className="max-w-7xl mx-auto px-4 py-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              {/* Vista y ordenamiento */}
-              <div className="flex items-center gap-4">
-                <div className="flex bg-gray-100 rounded-lg">
+        {/* Filtros y Productos en Grid */}
+        <section className="py-6">
+          <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row gap-8">
+            {/* Filtros a la izquierda */}
+            <aside className="w-full lg:w-64 mb-8 lg:mb-0">
+              <div className="bg-white rounded-xl shadow p-6 sticky top-8">
+                <h2 className="text-xl font-bold mb-6">Filtros</h2>
+                {/* Género */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-2">Género</h3>
+                  <div className="flex flex-col gap-2">
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={filterCategory === "all"}
+                        onChange={() => setFilterCategory("all")}
+                        className="mr-2"
+                      />
+                      Todos
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={filterCategory === "Hombre"}
+                        onChange={() => setFilterCategory("Hombre")}
+                        className="mr-2"
+                      />
+                      Hombre
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={filterCategory === "Mujer"}
+                        onChange={() => setFilterCategory("Mujer")}
+                        className="mr-2"
+                      />
+                      Mujer
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked={filterCategory === "Unisex"}
+                        onChange={() => setFilterCategory("Unisex")}
+                        className="mr-2"
+                      />
+                      Unisex
+                    </label>
+                  </div>
+                </div>
+                {/* Categoría */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-2">Categoria</h3>
+                  <div className="flex flex-col gap-2">
+                    <label>
+                      <input
+                        type="radio"
+                        name="category"
+                        checked={filterCategory === "all"}
+                        onChange={() => setFilterCategory("all")}
+                        className="mr-2"
+                      />
+                      Todos
+                    </label>
+                    {categories.map(category => (
+                      <label key={category}>
+                        <input
+                          type="radio"
+                          name="category"
+                          checked={filterCategory === category}
+                          onChange={() => setFilterCategory(category)}
+                          className="mr-2"
+                        />
+                        {category}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                {/* Marca */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-2">Marca</h3>
+                  <select
+                    value={filterBrand}
+                    onChange={(e) => setFilterBrand(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  >
+                    <option value="all">Todas las marcas</option>
+                    {brands.map(brand => (
+                      <option key={brand} value={brand}>{brand}</option>
+                    ))}
+                  </select>
+                </div>
+                {/* Precio */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-2">Precio</h3>
+                  <select
+                    value={filterPrice}
+                    onChange={(e) => setFilterPrice(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg"
+                  >
+                    <option value="all">Todos los precios</option>
+                    <option value="under-100">Menos de S/. 100</option>
+                    <option value="100-500">S/. 100 - S/. 500</option>
+                    <option value="500-1000">S/. 500 - S/. 1,000</option>
+                    <option value="over-1000">Más de S/. 1,000</option>
+                  </select>
+                </div>
+                {/* Limpiar filtros */}
+                <button
+                  onClick={() => {
+                    setFilterCategory("all");
+                    setFilterBrand("all");
+                    setFilterPrice("all");
+                  }}
+                  className="text-blue-600 text-sm underline"
+                >
+                  Limpiar todo
+                </button>
+              </div>
+            </aside>
+
+            {/* Productos a la derecha */}
+            <div className="flex-1">
+              {/* Título y Controles en la misma línea */}
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold">Productos</h2>
+                <div className="flex items-center gap-4">
+                <div className="flex bg-gray-100 rounded-lg h-10">
                   <button
                     onClick={() => setViewMode("grid")}
-                    className={`p-2 rounded-l-lg ${viewMode === "grid" ? "bg-black text-white" : "text-gray-600"}`}
+                    className={`px-3 h-full rounded-l-lg flex items-center justify-center ${viewMode === "grid" ? "bg-black text-white" : "text-gray-600"}`}
                   >
                     <FaThLarge />
                   </button>
                   <button
                     onClick={() => setViewMode("list")}
-                    className={`p-2 rounded-r-lg ${viewMode === "list" ? "bg-black text-white" : "text-gray-600"}`}
+                    className={`px-3 h-full rounded-r-lg flex items-center justify-center ${viewMode === "list" ? "bg-black text-white" : "text-gray-600"}`}
                   >
                     <FaList />
                   </button>
                 </div>
-
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="px-4 py-2 border rounded-lg"
+                  className="px-4 py-2 border rounded-lg h-10"
+                  style={{ minWidth: 180 }}
                 >
                   <option value="name">Ordenar por nombre</option>
                   <option value="price-low">Precio: menor a mayor</option>
                   <option value="price-high">Precio: mayor a menor</option>
                   <option value="rating">Mejor valorados</option>
                 </select>
-              </div>
-
-              {/* Filtros */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200"
-              >
-                Filtros {showFilters ? <FaChevronUp /> : <FaChevronDown />}
-              </button>
-            </div>
-
-            {/* Panel de filtros */}
-            {showFilters && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Categoría</label>
-                    <select
-                      value={filterCategory}
-                      onChange={(e) => setFilterCategory(e.target.value)}
-                      className="w-full px-3 py-2 border rounded-lg"
-                    >
-                      <option value="all">Todas las categorías</option>
-                      {categories.map(category => (
-                        <option key={category} value={category}>{category}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Marca</label>
-                    <select
-                      value={filterBrand}
-                      onChange={(e) => setFilterBrand(e.target.value)}
-                      className="w-full px-3 py-2 border rounded-lg"
-                    >
-                      <option value="all">Todas las marcas</option>
-                      {brands.map(brand => (
-                        <option key={brand} value={brand}>{brand}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Precio</label>
-                    <select
-                      value={filterPrice}
-                      onChange={(e) => setFilterPrice(e.target.value)}
-                      className="w-full px-3 py-2 border rounded-lg"
-                    >
-                      <option value="all">Todos los precios</option>
-                      <option value="under-100">Menos de S/. 100</option>
-                      <option value="100-500">S/. 100 - S/. 500</option>
-                      <option value="500-1000">S/. 500 - S/. 1,000</option>
-                      <option value="over-1000">Más de S/. 1,000</option>
-                    </select>
-                  </div>
                 </div>
               </div>
-            )}
-          </div>
-        </section>
-
-        {/* Grid de Productos */}
-        <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4">
-            {paginatedProducts.length === 0 ? (
-              <div className="text-center py-12">
-                <p className="text-gray-600 text-lg">No se encontraron productos</p>
-                <p className="text-gray-500 mt-2">Prueba ajustando los filtros</p>
-              </div>
-            ) : (
-              <div className={`grid gap-6 ${
-                viewMode === "grid" 
-                  ? "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
-                  : "grid-cols-1"
-              }`}>
-                {paginatedProducts.map((product) => (
-                  <div
-                    key={product.id}
-                    className={`bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group ${
-                      viewMode === "list" ? "flex" : ""
-                    }`}
-                  >
-                    {/* Imagen */}
-                    <div className={`relative overflow-hidden ${
-                      viewMode === "list" ? "w-48 h-48" : "w-full h-64"
-                    }`}>
-                      <img
-                        src={getImageUrl(product.image)}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          e.target.src = '/placeholder-image.jpg';
-                        }}
-                      />
-                      {/* Elimina o comenta este overlay para probar */}
-                      {/* <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" /> */}
-                    </div>
-
-                    {/* Información del producto */}
-                    <div className={`p-4 ${viewMode === "list" ? "flex-1" : ""}`}>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      
-                      <p className="text-sm text-gray-600 mb-2">
-                        {product.brand?.name || 'Sin marca'}
-                      </p>
-
-                      {product.category && (
-                        <p className="text-xs text-gray-500 mb-2">
-                          {product.category.name}
-                        </p>
-                      )}
-
-                      <div className="flex items-center mb-3">
-                        {renderStars(product.rating)}
-                        <span className="ml-2 text-sm text-gray-600">
-                          ({product.rating || 0})
-                        </span>
-                      </div>
-
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <span className="text-xl font-bold text-gray-900">
-                            S/. {(product.price || 0).toFixed(2)}
-                          </span>
+              {/* Grid de productos */}
+              {paginatedProducts.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-gray-600 text-lg">No se encontraron productos</p>
+                  <p className="text-gray-500 mt-2">Prueba ajustando los filtros</p>
+                </div>
+              ) : (
+                <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 justify-items-center">
+                  {paginatedProducts.map((product) => {
+                    const quantity = quantities[product.id] || 1;
+                    const genderLabel = product.gender?.toLowerCase() === "hombre"
+                      ? "Hombre"
+                      : product.gender?.toLowerCase() === "mujer"
+                        ? "Mujer"
+                        : product.gender?.toLowerCase() === "unisex"
+                          ? "Unisex"
+                          : null;
+                    const genderColor = genderLabel === "Hombre"
+                      ? "bg-black"
+                      : genderLabel === "Mujer"
+                        ? "bg-pink-500"
+                        : genderLabel === "Unisex"
+                          ? "bg-gray-700"
+                          : "bg-gray-400";
+                    return (
+                      <div
+                        key={product.id}
+                        className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden flex flex-col relative"
+                        style={{ width: "320px", minWidth: "320px", maxWidth: "340px" }}
+                      >
+                        {/* Imagen y etiqueta de género */}
+                        <div className="relative w-full h-72 flex items-center justify-center bg-gray-50">
+                          <img
+                            src={getImageUrl(product.image)}
+                            alt={product.name}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            onError={(e) => {
+                              e.target.src = '/placeholder-image.jpg';
+                            }}
+                          />
+                          {genderLabel && (
+                            <span className={`absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white ${genderColor}`}>
+                              {genderLabel}
+                            </span>
+                          )}
                         </div>
-
-                        <button
-                          onClick={() => handleAddToCart(product)}
-                          className="bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors flex items-center gap-2"
-                        >
-                          <FaShoppingCart size={14} />
-                          Agregar
-                        </button>
+                        {/* Info producto */}
+                        <div className="flex-1 flex flex-col p-5">
+                          <h3 className="text-lg font-bold text-gray-900 mb-2">{product.name}</h3>
+                          <div className="mb-2">
+                            <span className="text-xl font-bold text-gray-900">S/. {(product.price || 0).toFixed(2)}</span>
+                          </div>
+                          {/* Selector de cantidad */}
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-sm">Cantidad:</span>
+                            <button
+                              className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
+                              onClick={() => handleQuantityChange(product.id, -1)}
+                            >-</button>
+                            <span className="w-8 text-center">{quantity}</span>
+                            <button
+                              className="w-7 h-7 rounded-full border border-gray-300 flex items-center justify-center text-lg font-bold hover:bg-gray-100"
+                              onClick={() => handleQuantityChange(product.id, 1)}
+                            >+</button>
+                          </div>
+                          {/* Subtotal */}
+                          <div className="mb-4 text-sm text-gray-700">
+                            Subtotal: <span className="font-bold">S/. {(product.price * quantity).toFixed(2)}</span>
+                          </div>
+                          {/* Botón agregar al carrito */}
+                          <button
+                            onClick={() => handleAddToCart(product, quantity)}
+                            className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+                          >
+                            Agregar al Carrito ({quantity})
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Paginación */}
-            {totalPages > 1 && (
-              <div className="flex justify-center items-center mt-12 gap-4">
-                <button
-                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                  disabled={currentPage === 1}
-                  className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Anterior
-                </button>
-                
-                <span className="text-gray-600">
-                  Página {currentPage} de {totalPages}
-                </span>
-                
-                <button
-                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                  disabled={currentPage === totalPages}
-                  className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Siguiente
-                </button>
-              </div>
-            )}
+                    );
+                  })}
+                </div>
+              )}
+              {/* Paginación */}
+              {totalPages > 1 && (
+                <div className="flex justify-center items-center mt-12 gap-4">
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Anterior
+                  </button>
+                  <span className="text-gray-600">
+                    Página {currentPage} de {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 border rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Siguiente
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </main>
-
       <Footer />
     </div>
   );
